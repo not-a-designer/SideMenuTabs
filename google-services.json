@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "28252470541",
+    "firebase_url": "https://map-demo-1536849323418.firebaseio.com",
+    "project_id": "map-demo-1536849323418",
+    "storage_bucket": "map-demo-1536849323418.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28252470541:android:37660bb327d4df05",
+        "android_client_info": {
+          "package_name": "com.mapdemo.mappapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28252470541-844fokjmdt2mao9gilfdi07192qqeu6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mapdemo.mappapp",
+            "certificate_hash": "276ca2121d188e67851f2b8840c6aa9ed602036e"
+          }
+        },
+        {
+          "client_id": "28252470541-l5j4egji0jljvq9i0890qssromdos5ka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzS43AhmpzPttB33K_JAty3gumqYn9bsc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28252470541-l5j4egji0jljvq9i0890qssromdos5ka.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "28252470541-17fuebc459vh9kfd90tj746qguhkrdlb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mapdemo.mappapp"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

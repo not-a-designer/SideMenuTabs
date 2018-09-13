@@ -19,8 +19,21 @@
       </ion-show-when>
     </ion-buttons>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="mapView" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="agm">
+        <ion-label>AGM</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="native">
+        <ion-label>Native</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  
 </ion-header>
 
-<ion-content padding>
-Map Page
+<ion-content [ngSwitch]="mapView">
+  <app-agm *ngSwitchCase="'agm'"></app-agm>
+
+  <app-native-map *ngSwitchCase="'native'"></app-native-map>
 </ion-content>

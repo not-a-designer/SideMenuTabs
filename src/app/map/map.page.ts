@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class MapPage {
 
+  mapView: string = 'agm';
+
   constructor(private router: Router) {}
 
   toAboutPage() {
@@ -16,5 +18,9 @@ export class MapPage {
   }
   toSettingsPage() {
     this.router.navigateByUrl('/settings');
+  }
+
+  segmentChanged(event: any) {
+    console.log(event);
   }
 }

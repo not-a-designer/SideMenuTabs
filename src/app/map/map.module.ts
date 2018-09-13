@@ -1,25 +1,24 @@
+import { RouterModule } from '@angular/router';
 import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }  from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { IonicModule }  from '@ionic/angular';
 
-import { SettingsPage } from './settings.page';
+import { MapPage }      from './map.page';
 
 
 @NgModule({
   imports: [
+    IonicModule,
     CommonModule,
     FormsModule,
-    IonicModule,
     RouterModule.forChild([{
         path: '',
-        component: SettingsPage
-      }
-    ])
+        component: MapPage
+    }])
   ],
 
-  declarations: [ SettingsPage ]
+  declarations: [ MapPage ]
 })
-export class SettingsPageModule {}
+export class MapPageModule {}

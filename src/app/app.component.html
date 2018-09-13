@@ -1,5 +1,6 @@
 <ion-app>
   <ion-split-pane>
+    
     <ion-menu>
       <ion-header>
         <ion-toolbar>
@@ -18,12 +19,20 @@
       </ion-content>
       <ion-footer>
         <ion-toolbar>
-          <ion-title>Footer</ion-title>
+          <ion-title>&copy;&nbsp;Copyright</ion-title>
+          <ion-buttons slot="end">
+            <ion-menu-toggle>
+              <ion-button icon-only routerLink="/about">
+                <ion-icon name="information-circle"></ion-icon>
+              </ion-button>
+            </ion-menu-toggle>
+          </ion-buttons>
         </ion-toolbar>
       </ion-footer>
     </ion-menu>
+    
 
     <ion-router-outlet main></ion-router-outlet>
+
   </ion-split-pane>
-  
 </ion-app>

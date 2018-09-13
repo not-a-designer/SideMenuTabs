@@ -9,7 +9,11 @@ const routes: Routes = [
     loadChildren: './tabs/tabs.module#TabsPageModule'
   }, { 
     path: 'settings', 
-    loadChildren: './settings/settings.module#SettingsPageModule' }
+    loadChildren: './settings/settings.module#SettingsPageModule' 
+  }, {
+    path: 'about',
+    loadChildren: './about/about.module#AboutPageModule'
+  }
 ];
 
 

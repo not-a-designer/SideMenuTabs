@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-contact',
-  templateUrl: 'contact.page.html',
-  styleUrls: ['contact.page.scss']
+  selector: 'app-map',
+  templateUrl: './map.page.html',
+  styleUrls: ['./map.page.scss'],
 })
-export class ContactPage {
+export class MapPage {
 
   constructor(private router: Router) {}
 

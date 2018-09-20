@@ -1,3 +1,34 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-  </agm-map>
+<ion-item>
+  <ion-icon slot="start" name="search"></ion-icon>
+  <ion-input 
+    placeholder="search for location" 
+    autocorrect="off" 
+    autocapitalize="off" 
+    spellcheck="off" 
+    type="text" 
+    id="search"
+    #search></ion-input>
+</ion-item>
+  
+<agm-map 
+  #map 
+  [latitude]="lat" 
+  [longitude]="lng" 
+  [zoom]="zoom" 
+  [usePanning]="true">
+
+  <agm-marker 
+    #marker
+    *ngFor="let shop of locations | async" 
+    [latitude]="shop.latLng.lat" 
+    [longitude]="shop.latLng.lng"
+    (mouseOver)="onMouseOver(infoWindow)"
+    (mouseOut)="onMouseOut(infoWindow)">
+
+    <agm-info-window #infoWindow [disableAutoPan]="false">
+      {{ shop.name }}
+    </agm-info-window>
+    
+  </agm-marker>
+
+</agm-map>

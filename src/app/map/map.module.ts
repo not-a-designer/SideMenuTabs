@@ -3,13 +3,15 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule }                     from '@angular/common';
 import { FormsModule }                      from '@angular/forms';
 
+import { AngularFirestoreModule }           from '@angular/fire/firestore';
+
 import { IonicModule }                      from '@ionic/angular';
 
 import { AgmCoreModule }                    from '@agm/core';
 
+import { MAP_API_KEY }                      from '../app-credentials';
 import { MapPage }                          from './map.page';
 import { AgmComponent }                     from './agm/agm.component';
-import { NativeMapComponent } from './native-map/native-map.component';
 
 
 @NgModule({
@@ -21,18 +23,16 @@ import { NativeMapComponent } from './native-map/native-map.component';
         path: '',
         component: MapPage
     }]),
-    AgmCoreModule.forRoot()
+    AngularFirestoreModule,
+    AgmCoreModule.forRoot(MAP_API_KEY)
   ],
 
   declarations: [ 
     MapPage, 
-    AgmComponent, 
-    NativeMapComponent ],
-
-  entryComponents: [ 
-    AgmComponent,
-    NativeMapComponent
+    AgmComponent
   ],
+
+  entryComponents: [ AgmComponent ],
 
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

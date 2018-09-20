@@ -1,6 +1,9 @@
 import { NgModule }             from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 import { TabsPage }             from './tabs.page';
 import { ContactPage }          from '../contact/contact.page';
 import { HomePage }             from '../home/home.page';
@@ -39,7 +42,11 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    RouterModule.forChild(routes)
+  ],
   exports: [RouterModule]
 })
 export class TabsPageRoutingModule {}

@@ -1,5 +1,6 @@
 <ion-header>
   <ion-toolbar>
+
     <ion-buttons slot="start">
       <ion-menu-toggle>
         <ion-button icon-only>
@@ -7,33 +8,23 @@
         </ion-button>
       </ion-menu-toggle>
     </ion-buttons>
+
     <ion-title>Map</ion-title>
+
     <ion-buttons slot="end">
       <ion-show-when size="md, lg, xl">
         <ion-button icon-only (click)="toSettingsPage()">
           <ion-icon name="settings"></ion-icon>
         </ion-button>
         <ion-button icon-only (click)="toAboutPage()">
-            <ion-icon name="information-circle"></ion-icon>
-          </ion-button>
+          <ion-icon name="information-circle"></ion-icon>
+        </ion-button>
       </ion-show-when>
     </ion-buttons>
+    
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="mapView" (ionChange)="segmentChanged($event)">
-      <ion-segment-button value="agm">
-        <ion-label>AGM</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="native">
-        <ion-label>Native</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
-  
 </ion-header>
 
-<ion-content [ngSwitch]="mapView">
-  <app-agm *ngSwitchCase="'agm'"></app-agm>
-
-  <app-native-map *ngSwitchCase="'native'"></app-native-map>
+<ion-content>
+  <app-agm></app-agm>
 </ion-content>

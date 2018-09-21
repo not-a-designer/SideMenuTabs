@@ -9,7 +9,6 @@ import { SplashScreen }                        from '@ionic-native/splash-screen
 import { StatusBar }                           from '@ionic-native/status-bar/ngx';
 
 import { AngularFireModule }                   from '@angular/fire';
-import { AngularFireDatabaseModule }           from '@angular/fire/database';
 import { AngularFirestoreModule }              from '@angular/fire/firestore';
 
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
@@ -30,7 +29,6 @@ import { AppComponent }                        from './app.component';
     AppRoutingModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFirestoreModule,
-    AngularFireDatabaseModule,
     AgmCoreModule.forRoot(MAP_API_KEY)
   ],
 

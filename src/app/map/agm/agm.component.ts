@@ -1,20 +1,18 @@
 import { AfterViewInit,
          Component, 
          Inject,
-         ViewChild }                  from '@angular/core';
+         ViewChild }        from '@angular/core';
 
-import { DOCUMENT }                   from '@angular/common';
+import { DOCUMENT }         from '@angular/common';
 
 import { AgmMap,  
          MapsAPILoader, 
-         AgmInfoWindow }              from '@agm/core';
+         AgmInfoWindow }    from '@agm/core';
 
-import { AngularFirestore, 
-         AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable }       from 'rxjs';
 
-import { Observable }                 from 'rxjs';
-
-import { Coffeeshop }                 from '../../interfaces/coffeeshop';
+import { FirestoreService } from '../../firestore.service';
+import { Coffeeshop }       from '../../interfaces/coffeeshop';
 
 
 //TYPESCRIPT DECLARATION
@@ -34,11 +32,10 @@ export class AgmComponent implements AfterViewInit {
   lng: number = -87.9065;
   zoom: number = 11;
 
-  private coffeeshops: AngularFirestoreCollection<Coffeeshop>;
   locations: Observable<Coffeeshop[]>;
 
   constructor(@Inject(DOCUMENT) private document: Document, 
-              private afs: AngularFirestore,
+              private firestore: FirestoreService, 
               private mapsApiLoader: MapsAPILoader) { }
 
   ngAfterViewInit() {
@@ -71,8 +68,7 @@ export class AgmComponent implements AfterViewInit {
   }
 
   loadCoffeeshops(filter?: any) {
-    this.coffeeshops = this.afs.collection<Coffeeshop>('colectivo');
-    this.locations = this.coffeeshops.valueChanges();    
+    this.locations = this.firestore.loadColectivo();    
   }
 
   /** MARKER INFO WINDOW FUNCTIONS **/

@@ -1,7 +1,7 @@
 <ion-app>
   <ion-split-pane>
     
-    <ion-menu>
+    <ion-menu #mainMenu>
       <ion-header>
         <ion-toolbar>
           <ion-title>Menu</ion-title>
@@ -15,7 +15,22 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
+        <ion-list>
+          <ion-item *ngIf="displayedLocation == null">
+            <ion-label>No Selected Location</ion-label>
+          </ion-item>
 
+          <ion-item *ngIf="displayedLocation">
+            <ion-label>
+              <h2>{{ displayedLocation.name }}</h2>
+              <h3>{{ displayedLocation.address }}</h3>
+              <p>{{ displayedLocation.phone }}</p>
+            </ion-label>
+            <ion-fab-button slot="end" mini color="transparent">
+              <ion-icon name="navigate"></ion-icon>
+            </ion-fab-button>
+          </ion-item>
+        </ion-list>
       </ion-content>
       <ion-footer>
         <ion-toolbar>

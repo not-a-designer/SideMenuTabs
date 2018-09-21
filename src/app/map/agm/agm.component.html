@@ -17,18 +17,15 @@
   [zoom]="zoom" 
   [usePanning]="true">
 
-  <agm-marker 
-    #marker
-    *ngFor="let shop of locations | async" 
-    [latitude]="shop.latLng.lat" 
-    [longitude]="shop.latLng.lng"
-    (mouseOver)="onMouseOver(infoWindow)"
-    (mouseOut)="onMouseOut(infoWindow)">
-
-    <agm-info-window #infoWindow [disableAutoPan]="false">
-      {{ shop.name }}
-    </agm-info-window>
-    
-  </agm-marker>
+  <ion-menu-toggle>
+      <agm-marker 
+      #marker
+      *ngFor="let shop of locations | async" 
+      [latitude]="shop.latLng.lat" 
+      [longitude]="shop.latLng.lng"
+      (markerClick)="onMarkerClick(shop)">    
+    </agm-marker>
+  </ion-menu-toggle>
+  
 
 </agm-map>

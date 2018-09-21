@@ -1,18 +1,18 @@
 import { AfterViewInit,
          Component, 
          Inject,
-         ViewChild }        from '@angular/core';
+         ViewChild }             from '@angular/core';
 
-import { DOCUMENT }         from '@angular/common';
+import { DOCUMENT }              from '@angular/common';
 
-import { AgmMap,  
-         MapsAPILoader, 
-         AgmInfoWindow }    from '@agm/core';
+import { MenuController }        from '@ionic/angular';
 
-import { Observable }       from 'rxjs';
+import { AgmMap, MapsAPILoader } from '@agm/core';
 
-import { FirestoreService } from '../../firestore.service';
-import { Coffeeshop }       from '../../interfaces/coffeeshop';
+import { Observable }            from 'rxjs';
+
+import { FirestoreService }      from '../../firestore.service';
+import { Coffeeshop }            from '../../interfaces/coffeeshop';
 
 
 //TYPESCRIPT DECLARATION
@@ -36,7 +36,8 @@ export class AgmComponent implements AfterViewInit {
 
   constructor(@Inject(DOCUMENT) private document: Document, 
               private firestore: FirestoreService, 
-              private mapsApiLoader: MapsAPILoader) { }
+              private mapsApiLoader: MapsAPILoader,
+              private menuCtrl: MenuController) { }
 
   ngAfterViewInit() {
     this.loadMap();
@@ -67,15 +68,14 @@ export class AgmComponent implements AfterViewInit {
     });
   }
 
-  loadCoffeeshops(filter?: any) {
-    this.locations = this.firestore.loadColectivo();    
-  }
+  loadCoffeeshops(filter?: any) { this.locations = this.firestore.loadColectivo() }
 
   /** MARKER INFO WINDOW FUNCTIONS **/
 
-  onMouseOut(infoWindow: AgmInfoWindow) { infoWindow.close() }
-
-  onMouseOver(infoWindow: AgmInfoWindow) { infoWindow.open() }
+  onMarkerClick(shop: Coffeeshop) { 
+    this.firestore.updateLocation(shop); 
+    this.menuCtrl.toggle();
+  }
 
   /** END MARKER INFO WINDOW FUNCTIONS **/
 }

@@ -5,7 +5,7 @@ import { Platform }         from '@ionic/angular';
 import { SplashScreen }     from '@ionic-native/splash-screen/ngx';
 import { StatusBar }        from '@ionic-native/status-bar/ngx';
 
-import { FirestoreService } from '@app-services/firestore.service';;
+import { FirestoreService } from '@app-services/firestore.service';
 import { Coffeeshop }       from './interfaces/coffeeshop';
 
 
@@ -15,7 +15,7 @@ import { Coffeeshop }       from './interfaces/coffeeshop';
 })
 export class AppComponent {
 
-  displayedLocation: Coffeeshop;
+  public displayedLocation: Coffeeshop;
 
   constructor(private firestore: FirestoreService,
               private platform: Platform,
@@ -37,11 +37,12 @@ export class AppComponent {
   loadSelected() {
     this.firestore.selectedLocation.subscribe((location) => {
       this.displayedLocation = location;
+
       for (let el in this.displayedLocation) {
         if (el === 'latLng') console.dir(`${el}: { lat: ${this.displayedLocation[el].lat}, lng: ${this.displayedLocation[el].lng} }`);
         else console.dir(`${el}: ${this.displayedLocation[el]}`);
       }
-    })
+    });
   }
 
 

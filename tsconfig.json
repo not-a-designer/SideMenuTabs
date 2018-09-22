@@ -16,8 +16,6 @@
     "baseUrl": "./src",
     "paths": {
       "@app-services/*": ["./app/services/*"],
-      "@app-pages/*": ["./app/pages/*"],
-      "@app-interfaces/*": ["./app/interfaces/*"],
       "@environments/*": ["./environments/*"]
     }
   }

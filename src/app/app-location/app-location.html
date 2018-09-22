@@ -1,10 +1,30 @@
 <ion-item>
-    <ion-label>
-      <h2>{{ location.name }}</h2>
-      <h3>{{ location.address }}</h3>
-      <p>{{ location.phone }}</p>
-    </ion-label>
-    <ion-fab-button slot="end" mini>
-      <ion-icon name="navigate"></ion-icon>
-    </ion-fab-button>
-  </ion-item>
+
+  <ion-label>
+    <h2>{{ location.name }}</h2>
+    <h3>{{ location.address }}</h3>
+    <p>{{ location.phone }}</p>
+
+    <ion-row>
+        <ion-col>
+          <ion-fab-button mini (click)="onFavorite()">
+            <ion-icon name="star" color="tertiary"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+    
+        <ion-col>
+          <ion-fab-button mini (click)="onAbout()">
+            <ion-icon name="information-circle" color="secondary"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+    
+        <ion-col>
+          <ion-fab-button mini (click)="onNavigate()">
+            <ion-icon name="compass" color="primary"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+      </ion-row>
+
+  </ion-label>
+  
+</ion-item>

@@ -27,14 +27,13 @@ import { AppRoutingModule }                    from './app-routing.module';
 import { AppComponent }                        from './app.component';
 import { LocationComponent }                   from './app-location/app-location.component';
 /** SERVICES **/
-import { AgmMapService }                       from '@app-services/agm-map.service' //from './services/agm-map.service';
 import { FirestoreService }                    from '@app-services/firestore.service';
 
 
 @NgModule({
   declarations: [ 
     AppComponent, 
-    LocationComponent 
+    LocationComponent
   ],
 
   entryComponents: [ LocationComponent ],
@@ -49,7 +48,6 @@ import { FirestoreService }                    from '@app-services/firestore.ser
   ],
 
   providers: [
-    AgmMapService,
     FirestoreService,
     GoogleMapsAPIWrapper,
     StatusBar,

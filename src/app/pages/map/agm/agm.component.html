@@ -15,9 +15,9 @@
   [latitude]="lat" 
   [longitude]="lng" 
   [zoom]="zoom" 
-  [usePanning]="true"
-  (mapReady)="fitBounds($event)">
+  [usePanning]="true">
 
+  <!--  MARKERS TOGGLE ION MENU  -->
   <ion-menu-toggle>
     <agm-marker 
       #marker
@@ -27,6 +27,6 @@
       (mouseOver)="onMouseOver(shop)">    
     </agm-marker>
   </ion-menu-toggle>
-  
+  <!--  END MARKERS  -->
 
 </agm-map>

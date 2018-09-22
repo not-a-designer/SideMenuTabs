@@ -16,11 +16,11 @@ export class FirestoreService {
 
   constructor(private afs: AngularFirestore) { }
 
-  loadColectivo(filter?: any): Observable<Coffeeshop[]> {
+  public loadColectivo(filter?: any): Observable<Coffeeshop[]> {
     return this.afs.collection<Coffeeshop>('colectivo').valueChanges();
   }
 
-  updateLocation(shop: Coffeeshop) {
+  public updateLocation(shop: Coffeeshop): void {
     this.selectedLocation.next(shop);
   }
 }

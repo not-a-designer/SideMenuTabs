@@ -4,7 +4,7 @@ import { AngularFirestore }            from '@angular/fire/firestore';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { Coffeeshop }                  from './interfaces/coffeeshop'
+import { Coffeeshop }                  from '../interfaces/coffeeshop'
 
 
 @Injectable({

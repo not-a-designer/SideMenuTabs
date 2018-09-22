@@ -16,20 +16,17 @@
       </ion-header>
       <ion-content>
         <ion-list>
-          <ion-item *ngIf="displayedLocation == null">
-            <ion-label>No Selected Location</ion-label>
-          </ion-item>
+         
 
-          <ion-item *ngIf="displayedLocation">
-            <ion-label>
-              <h2>{{ displayedLocation.name }}</h2>
-              <h3>{{ displayedLocation.address }}</h3>
-              <p>{{ displayedLocation.phone }}</p>
-            </ion-label>
-            <ion-fab-button slot="end" mini color="transparent">
-              <ion-icon name="navigate"></ion-icon>
-            </ion-fab-button>
-          </ion-item>
+          <app-location *ngIf="displayedLocation; else noSelected" [location]="displayedLocation ? displayedLocation : null">
+          </app-location>
+
+          <ng-template #noSelected>
+            <ion-item>
+              <ion-label>Select a Milwaukee location</ion-label>
+            </ion-item>
+          </ng-template>
+
         </ion-list>
       </ion-content>
       <ion-footer>

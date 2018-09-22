@@ -5,7 +5,7 @@ import { Platform }         from '@ionic/angular';
 import { SplashScreen }     from '@ionic-native/splash-screen/ngx';
 import { StatusBar }        from '@ionic-native/status-bar/ngx';
 
-import { FirestoreService } from './firestore.service';
+import { FirestoreService } from '@app-services/firestore.service';;
 import { Coffeeshop }       from './interfaces/coffeeshop';
 
 

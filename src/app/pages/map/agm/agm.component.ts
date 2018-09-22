@@ -8,15 +8,16 @@ import { DOCUMENT }              from '@angular/common';
 import { MenuController }        from '@ionic/angular';
 
 import { AgmMap, MapsAPILoader } from '@agm/core';
+import { LatLngLiteral, LatLngBounds }  from '@agm/core/services/google-maps-types';
 
 import { Observable }            from 'rxjs';
 
-import { FirestoreService }      from '../../firestore.service';
-import { Coffeeshop }            from '../../interfaces/coffeeshop';
+import { FirestoreService }      from '@app-services/firestore.service';
+import { Coffeeshop }            from '@app-interfaces/coffeeshop';
 
 
 //TYPESCRIPT DECLARATION
-declare const google: any;
+declare let google: any;
 
 
 @Component({
@@ -26,7 +27,7 @@ declare const google: any;
 })
 export class AgmComponent implements AfterViewInit {
 
-  @ViewChild('map') public map: AgmMap;
+  @ViewChild(AgmMap) public map: AgmMap;
 
   lat: number = 43.0389;
   lng: number = -87.9065;
@@ -40,16 +41,26 @@ export class AgmComponent implements AfterViewInit {
               private menuCtrl: MenuController) { }
 
   ngAfterViewInit() {
-    this.loadMap();
+    let input = <HTMLInputElement>this.document.getElementById('search');
+    this.initAutocomplete(input);
     this.loadCoffeeshops();
     
   }
 
-  loadMap() {
-    let input = <HTMLInputElement>this.document.getElementById('search');
+  loadCoffeeshops(filter?: any) { this.locations = this.firestore.loadColectivo() }
 
+  /** MARKER INFO WINDOW FUNCTIONS **/
+
+  onMouseOver(shop: Coffeeshop) {
+    this.firestore.updateLocation(shop); 
+    this.menuCtrl.toggle();
+  }
+
+  /** END MARKER INFO WINDOW FUNCTIONS **/
+
+  initAutocomplete(input: HTMLInputElement) {
     this.mapsApiLoader.load().then(() => {
-      this.loadCoffeeshops();
+
       let autocomplete = new google.maps.places.Autocomplete(
         input,
         { types: ["address"] }
@@ -68,14 +79,31 @@ export class AgmComponent implements AfterViewInit {
     });
   }
 
-  loadCoffeeshops(filter?: any) { this.locations = this.firestore.loadColectivo() }
-
-  /** MARKER INFO WINDOW FUNCTIONS **/
-
-  onMarkerClick(shop: Coffeeshop) { 
-    this.firestore.updateLocation(shop); 
-    this.menuCtrl.toggle();
+  fitBounds(map) {
+    console.log(map);
+    let bounds: LatLngBounds;
+    //this.map.mapReady.subscribe((map) => {
+    console.log('map ready' + bounds.toJSON());
+    this.map = map;
+    //this.map.fitBounds(this.findMapBounds());
+    //});
   }
 
-  /** END MARKER INFO WINDOW FUNCTIONS **/
+  findMapBounds(){
+    let bounds:LatLngBounds;
+    
+    this.locations.forEach((list: Coffeeshop[]) => {
+      for(let loc of list){
+        bounds.extend(new google.maps.LatLng(loc.latLng.lat, loc.latLng.lng));
+      }
+    })
+    
+    return bounds;
 }
+
+
+
+  
+}
+
+

@@ -9,7 +9,7 @@ import { IonicModule }                      from '@ionic/angular';
 
 import { AgmCoreModule }                    from '@agm/core';
 
-import { MAP_API_KEY }                      from '../app-credentials';
+import { MAP_API_KEY }                      from '../../app-credentials';
 import { MapPage }                          from './map.page';
 import { AgmComponent }                     from './agm/agm.component';
 
@@ -19,10 +19,12 @@ import { AgmComponent }                     from './agm/agm.component';
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{
+    RouterModule.forChild([
+      {
         path: '',
         component: MapPage
-    }]),
+      }
+    ]),
     AngularFirestoreModule,
     AgmCoreModule.forRoot(MAP_API_KEY)
   ],

@@ -8,7 +8,7 @@ import { IonicModule }                      from '@ionic/angular';
 
 import { AgmCoreModule }                    from '@agm/core';
 
-import { MAP_API_KEY }                      from '../app-credentials';
+import { MAP_API_KEY }                      from '../../app-credentials';
 import { TabsPageRoutingModule }            from './tabs.router.module';
 import { TabsPage }                         from './tabs.page';
 import { ContactPageModule }                from '../contact/contact.module';

@@ -15,15 +15,16 @@
   [latitude]="lat" 
   [longitude]="lng" 
   [zoom]="zoom" 
-  [usePanning]="true">
+  [usePanning]="true"
+  (mapReady)="fitBounds($event)">
 
   <ion-menu-toggle>
-      <agm-marker 
+    <agm-marker 
       #marker
       *ngFor="let shop of locations | async" 
       [latitude]="shop.latLng.lat" 
       [longitude]="shop.latLng.lng"
-      (markerClick)="onMarkerClick(shop)">    
+      (mouseOver)="onMouseOver(shop)">    
     </agm-marker>
   </ion-menu-toggle>
   

@@ -5,13 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '', 
-    loadChildren: './tabs/tabs.module#TabsPageModule'
+    loadChildren: './pages/tabs/tabs.module#TabsPageModule'
   }, { 
     path: 'settings', 
-    loadChildren: './settings/settings.module#SettingsPageModule' 
+    loadChildren: './pages/settings/settings.module#SettingsPageModule' 
   }, {
     path: 'about',
-    loadChildren: './about/about.module#AboutPageModule'
+    loadChildren: './pages/about/about.module#AboutPageModule'
   }
 ];
 

@@ -27,7 +27,7 @@ platforms/
 plugins/
 plugins/android.json
 plugins/ios.json
-src/environment/*
+src/environments/*
 *.keystore
 google-services.json
 GoogleService-Info.plist

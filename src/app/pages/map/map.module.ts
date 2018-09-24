@@ -9,7 +9,7 @@ import { IonicModule }                      from '@ionic/angular';
 
 import { AgmCoreModule }                    from '@agm/core';
 
-import { MAP_API_KEY }                      from '../../app-credentials';
+import { environment }                      from '../../../environments/environment.prod';
 import { MapPage }                          from './map.page';
 import { AgmComponent }                     from './agm/agm.component';
 
@@ -26,7 +26,7 @@ import { AgmComponent }                     from './agm/agm.component';
       }
     ]),
     AngularFirestoreModule,
-    AgmCoreModule.forRoot(MAP_API_KEY)
+    AgmCoreModule.forRoot(environment.agmConfig)
   ],
 
   declarations: [ 

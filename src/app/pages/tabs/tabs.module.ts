@@ -8,7 +8,7 @@ import { IonicModule }                      from '@ionic/angular';
 
 import { AgmCoreModule }                    from '@agm/core';
 
-import { MAP_API_KEY }                      from '../../app-credentials';
+import { environment }                      from '../../../environments/environment.prod';
 import { TabsPageRoutingModule }            from './tabs.router.module';
 import { TabsPage }                         from './tabs.page';
 import { ContactPageModule }                from '../contact/contact.module';
@@ -25,7 +25,7 @@ import { HomePageModule }                   from '../home/home.module';
     HomePageModule,
     MapPageModule,
     ContactPageModule,
-    AgmCoreModule.forRoot(MAP_API_KEY)
+    AgmCoreModule.forRoot(environment.agmConfig)
   ],
 
   declarations: [ TabsPage ],

@@ -12,6 +12,7 @@ import { AgmMap, MapsAPILoader } from '@agm/core';
 import { Observable }            from 'rxjs';
 
 import { FirestoreService }      from '@app-services/firestore.service';
+import { GoogleMapsService }     from '@app-services/google-maps.service';
 import { Coffeeshop }            from '../../../interfaces/coffeeshop';
 
 
@@ -35,24 +36,38 @@ export class AgmComponent implements AfterViewInit {
 
   public locations: Observable<Coffeeshop[]>;
 
+  directionsService: any;
+  directionsDisplay: any;
+
   constructor(@Inject(DOCUMENT) private document: Document, 
-              private firestore: FirestoreService, 
+              private firestore: FirestoreService,
+              private googleMaps: GoogleMapsService, 
               private mapsApiLoader: MapsAPILoader,
               private menuCtrl: MenuController) { }
 
   ngAfterViewInit() {
     //capture input text from template
     let input = <HTMLInputElement>this.document.getElementById('search');
+    let directionsButton = <HTMLButtonElement>this.document.getElementById('directions');
 
     //load AGM MapAPI
     this.mapsApiLoader.load().then(() => {
       //fetch locations
       this.loadCoffeeshops();
+      
       //set bounds
       this.setBounds();
+
+      //initialize directions
+      this.googleMaps.initDirections();
+
       //initialize autocomplete
-      this.initAutocomplete(input);
+      this.googleMaps.initAutocomplete(input);
+
+      this.googleMaps.initGeocoder();
     });    
+
+
   }
 
   /** FETCH FIRESTORE LOCATIONS **/
@@ -61,35 +76,15 @@ export class AgmComponent implements AfterViewInit {
 
   /** GOOGLE MAPS API METHODS **/
   setBounds() {
-    const mapBounds = new google.maps.LatLngBounds();
-
-    this.locations.forEach((coffeeshops: Coffeeshop[]) => {
-      for (let shop of coffeeshops) {
-        const latLng = new google.maps.LatLng(shop.latLng.lat, shop.latLng.lng);
-        mapBounds.extend(latLng);
-      }
-
-      this.lat = mapBounds.getCenter().lat();
-      this.lng = mapBounds.getCenter().lng();
-
-      //console.log(`Bounds set\ncenter: { ${this.lat}, ${this.lng} }`)
+    this.googleMaps.setBounds(this.locations);
+    this.googleMaps.center.subscribe((c) => {
+      this.lat = c.lat;
+      this.lng = c.lng;
     });
-  }
+  } 
+  
 
-  initAutocomplete(input: HTMLInputElement) {
-    let autocomplete = new google.maps.places.Autocomplete(input, { types: ["address"] });
 
-    google.maps.event.addListener(autocomplete, "place_changed", () => {
-      //get the place result
-      let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-      //verify result
-      if (place.geometry === undefined || place.geometry === null)  return;
-
-      this.lat = place.geometry.location.lat();
-      this.lng = place.geometry.location.lng();
-      this.zoom = 11;
-    });
-  }
   /** END GOOGLE MAPS API METHODS **/
 
 

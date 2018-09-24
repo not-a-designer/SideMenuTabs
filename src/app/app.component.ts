@@ -1,5 +1,7 @@
 import { Component }        from '@angular/core';
 
+import { Router } from '@angular/router'
+
 import { Platform }         from '@ionic/angular';
 
 import { SplashScreen }     from '@ionic-native/splash-screen/ngx';
@@ -20,7 +22,8 @@ export class AppComponent {
   constructor(private firestore: FirestoreService,
               private platform: Platform,
               private splashScreen: SplashScreen,
-              private statusBar: StatusBar) {
+              private statusBar: StatusBar,
+              public router: Router) {
                 
     this.initializeApp();
   }

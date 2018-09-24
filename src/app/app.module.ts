@@ -20,7 +20,7 @@ import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 
 /**APP API CREDENTIALS **/
-import { MAP_API_KEY, FIREBASE_CONFIG }        from './app-credentials';
+import { environment }                         from '../environments/environment.prod';
 /** ROUTING MODULE **/
 import { AppRoutingModule }                    from './app-routing.module';
 /** COMPONENTS **/
@@ -28,6 +28,7 @@ import { AppComponent }                        from './app.component';
 import { LocationComponent }                   from './app-location/app-location.component';
 /** SERVICES **/
 import { FirestoreService }                    from '@app-services/firestore.service';
+import { GoogleMapsService }                   from '@app-services/google-maps.service';
 
 
 @NgModule({
@@ -42,14 +43,15 @@ import { FirestoreService }                    from '@app-services/firestore.ser
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
-    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AgmCoreModule.forRoot(MAP_API_KEY)
+    AgmCoreModule.forRoot(environment.agmConfig)
   ],
 
   providers: [
     FirestoreService,
     GoogleMapsAPIWrapper,
+    GoogleMapsService,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

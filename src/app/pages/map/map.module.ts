@@ -1,5 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule }                     from '@angular/router';
+import { Routes, RouterModule }             from '@angular/router';
 import { CommonModule }                     from '@angular/common';
 import { FormsModule }                      from '@angular/forms';
 
@@ -13,18 +13,17 @@ import { environment }                      from '../../../environments/environm
 import { MapPage }                          from './map.page';
 import { AgmComponent }                     from './agm/agm.component';
 
+const routes: Routes = [
+  { path: '', component: MapPage }
+]
+
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: MapPage
-      }
-    ]),
+    RouterModule.forChild(routes),
     AngularFirestoreModule,
     AgmCoreModule.forRoot(environment.agmConfig)
   ],

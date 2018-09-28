@@ -1,16 +1,21 @@
+import { Injectable, ElementRef } from '@angular/core';
 
-import { Injectable }                  from '@angular/core';
+import { MapsAPILoader }          from '@agm/core';
 
-import { Observable, BehaviorSubject } from 'rxjs';
-
-import { Coffeeshop }                  from './../interfaces/coffeeshop';
+import { BehaviorSubject }        from 'rxjs';
 
 declare const google: any;
-
-interface Point {
-  lat: number,
-  lng: number
-}
+const DETAIL_FIELDS: string[] = [ 
+  'formatted_address', 
+  'geometry', 
+  'icon', 
+  'id', 
+  'name', 
+  'permanently_closed', 
+  'photos', 
+  'place_id', 
+  'formatted_phone_number' 
+];
 
 
 @Injectable({
@@ -18,48 +23,74 @@ interface Point {
 })
 export class GoogleMapsService {
 
+  map: any;
+  //infoWindow: any;
   autocomplete: any;
   directionsService: any;
   directionsDisplay: any;
-  geocoder: any;
   placesService: any;
+  geocoder: any;
+  
 
-  place: google.maps.places.PlaceResult;
-  center: BehaviorSubject<Point>;
+  options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
 
-  constructor() {}
+  allCafes = [];
+  allMarkers = [];
+  allDetails = [];
 
-  recenterMap(center: Point) { this.center.next(center) }
+  selected: google.maps.places.PlaceResult = null;
+  selectedPlace: BehaviorSubject<google.maps.places.PlaceResult> = new BehaviorSubject<google.maps.places.PlaceResult>(this.selected);
 
-  setBounds(locations: Observable<Coffeeshop[]>) {
-    const bounds = new google.maps.LatLngBounds();
-    
-    locations.forEach((coffeeshops: Coffeeshop[]) => {
-      for (let shop of coffeeshops) {
-        const latLng = new google.maps.LatLng(shop.latLng.lat, shop.latLng.lng);
-        bounds.extend(latLng);
-      }
-    });
-
-    this.center = new BehaviorSubject<Point>(bounds.getCenter());
+  constructor(private mapsApiLoader: MapsAPILoader) {
   }
 
-  initAutocomplete(input: HTMLInputElement): any {
+  initMap(mapRef: ElementRef, searchInput: HTMLInputElement) {
+
+    this.mapsApiLoader.load().then(() => {
+
+      navigator.geolocation.getCurrentPosition((location) => {
+
+        console.log(location);
+        const center = new google.maps.LatLng({ lat: location.coords.latitude, lng: location.coords.longitude });
+
+        this.loadServices();
+
+        this.map = new google.maps.Map(mapRef.nativeElement, {
+          center: center,
+          zoom: 13
+        },
+        (error) => console.log(error),
+        this.options);
+
+        this.initPlacesService();
+        this.initAutocomplete(searchInput);
+        //this.infoWindow = new google.maps.InfoWindow();
+        this.loadCafes(center);
+      });
+    });
+  }
+
+  loadServices() {
+    this.initGeocoder();
+    this.initDirections();
+  }
+
+  initAutocomplete(input: HTMLInputElement) {
     this.autocomplete = new google.maps.places.Autocomplete(input, { types: ["address"] });
     console.log('Autocomplete initialized');
     
     google.maps.event.addListener(this.autocomplete, "place_changed", () => {
       //get the place result
-      this.place = this.autocomplete.getPlace();
+      const place = this.autocomplete.getPlace();
       //verify result
-      if (this.place.geometry === undefined || this.place.geometry === null)  return;
+      if (place.geometry === undefined || place.geometry === null)  return;
 
       else {
-        console.log(`place: { ${this.place.geometry.location.lat()}, ${this.place.geometry.location.lng()} }`);
-        this.recenterMap({
-          lat: this.place.geometry.location.lat(), 
-          lng: this.place.geometry.location.lng()
-        });
+        console.log(`place: { ${place.geometry.location.position.lat()}, ${place.geometry.location.poistion.lng()} }`);
       }
     });
   }
@@ -69,34 +100,62 @@ export class GoogleMapsService {
     console.log('Geocoder initialized');
   }
 
-  gecodeAddress(address) {
-    //TODO
-  }
-
   initDirections() {
     this.directionsService = new google.maps.DirectionsService();
     this.directionsDisplay = new google.maps.DirectionsRenderer();
     console.log('Directions initialized')
   }
 
-  initPlacesService(map) {
-    this.placesService = new google.maps.places.PlacesService(map);
+  initPlacesService() {
+    this.placesService = new google.maps.places.PlacesService(this.map);
     console.log('Places initialized');
   }
 
-  calculateRoute(start, dest) {
-    //TODO
+  loadCafes(center) {
+    const request = {
+      location: center,
+      radius: 5500,
+      name: 'Colectivo'
+    };
+
+    this.placesService.nearbySearch(request, (results: google.maps.places.PlaceResult[], status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        console.log('results: ' + results.length);
+        this.allCafes = results;
+
+        for (let cafe of this.allCafes) { this.getPlaceDetails(cafe) }
+        setTimeout(() => {
+          for (let d of this.allDetails) { this.createMarker(this.allDetails.indexOf(d)) }
+        }, 300);
+      }
+      else console.log('nearby search error');
+    });
   }
 
-  loadCafes(location) {
-    const req = {
-      location: location,
-      radius: 1000,
-      types: ['cafe']
-    }
+  createMarker(index: number) {
+    const loc = { lat: this.allCafes[index].geometry.location.lat(), lng: this.allCafes[index].geometry.location.lng() };
 
-    this.placesService.nearbySearch(req, (results, status) => {
-      
+    const marker = new google.maps.Marker({ map: this.map, position: loc });
+
+    marker.addListener('mousedown', (event) => {
+      this.map.panTo(marker.getPosition());
+      console.log('place: ' + this.allCafes[index].geometry.location.lat() + ', ' + this.allCafes[index].geometry.location.lng());
+      console.log('marker: ' + marker.position.lat() + ', ' + marker.position.lng());
+      this.selected = this.allDetails[index];
+      this.selectedPlace.next(this.allDetails[index]);
+    });
+
+    this.allMarkers.push(marker);
+  }
+
+  getPlaceDetails(place: google.maps.places.PlaceResult) {
+    const detailRequest: google.maps.places.PlaceDetailsRequest = { placeId: place.place_id, fields: DETAIL_FIELDS };
+
+    this.placesService.getDetails(detailRequest, (p: google.maps.places.PlaceResult, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        console.log(p);
+        this.allDetails.push(p);
+      }
     });
   }
 }

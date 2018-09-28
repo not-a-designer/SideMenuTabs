@@ -11,13 +11,32 @@ import { MapPage }                   from '../map/map.page';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/tabs/(home:home)', pathMatch: 'full' },
+  { 
+    path: '', 
+    redirectTo: '/tabs/(home:home)', 
+    pathMatch: 'full' },
 
-  { path: 'tabs', component: TabsPage, children: [
-      { path: '', redirectTo: '/tabs/(home:home)', pathMatch: 'full' }, 
-      { path: 'home', outlet: 'home', component: HomePage }, 
-      { path: 'map', outlet: 'map', component: MapPage }, 
-      { path: 'contact', outlet: 'contact', component: ContactPage }
+  { 
+    path: 'tabs', 
+    component: TabsPage, 
+    children: [
+      { 
+        path: '', 
+        redirectTo: '/tabs/(home:home)', 
+        pathMatch: 'full' 
+      }, { 
+        path: 'home', 
+        outlet: 'home', 
+        component: HomePage 
+      },  { 
+        path: 'map', 
+        outlet: 'map', 
+        component: MapPage 
+      }, { 
+        path: 'contact', 
+        outlet: 'contact', 
+        component: ContactPage 
+      }
     ]
   }
 ];

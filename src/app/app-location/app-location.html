@@ -1,12 +1,8 @@
-<ion-item>
-
-  
-
+<ion-item *ngIf="location$ | async as location; else noSelected">
   <ion-label>
-      
     <h2><ion-icon slot="start" name="cafe"></ion-icon>{{  ' ' + location.name }}</h2>
-    <h3>{{ location.address }}</h3>
-    <p>{{ location.phone }}</p>
+    <h3 text-wrap>{{ location.formatted_address }}</h3>
+    <p>{{ location.formatted_phone_number }}</p>
 
     <ion-row>
         <ion-col>
@@ -31,3 +27,9 @@
   </ion-label>
   
 </ion-item>
+
+<ng-template #noSelected>
+  <ion-item>
+    <ion-label>Select a Milwaukee location</ion-label>
+  </ion-item>
+</ng-template>

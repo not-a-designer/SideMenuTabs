@@ -1,11 +1,15 @@
-import { NgModule }     from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule }  from '@angular/forms';
+import { NgModule }             from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CommonModule }         from '@angular/common';
+import { FormsModule }          from '@angular/forms';
 
-import { IonicModule }  from '@ionic/angular';
+import { IonicModule }          from '@ionic/angular';
 
-import { ContactPage }  from './contact.page';
+import { ContactPage }          from './contact.page';
+
+const routes: Routes = [
+  { path: '', component: ContactPage }
+];
 
 
 @NgModule({
@@ -13,12 +17,7 @@ import { ContactPage }  from './contact.page';
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([
-      { 
-        path: '', 
-        component: ContactPage 
-      }
-    ])
+    RouterModule.forChild(routes)
   ],
 
   declarations: [ ContactPage ]

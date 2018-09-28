@@ -1,13 +1,12 @@
 import { AfterViewInit,
          Component, 
          Inject,
-         ViewChild }             from '@angular/core';
+         ViewChild, 
+         ElementRef }            from '@angular/core';
 
 import { DOCUMENT }              from '@angular/common';
 
-import { MenuController }        from '@ionic/angular';
-
-import { AgmMap, MapsAPILoader } from '@agm/core';
+import { MenuController, Platform } from '@ionic/angular';
 
 import { Observable }            from 'rxjs';
 
@@ -27,8 +26,7 @@ declare const google: any;
 })
 export class AgmComponent implements AfterViewInit {
 
-  @ViewChild(AgmMap) 
-  public map: AgmMap;
+  @ViewChild('map') map: ElementRef
 
   public lat: number = 43.1506;
   public lng: number = -87.9579;
@@ -42,51 +40,20 @@ export class AgmComponent implements AfterViewInit {
   constructor(@Inject(DOCUMENT) private document: Document, 
               private firestore: FirestoreService,
               private googleMaps: GoogleMapsService, 
-              private mapsApiLoader: MapsAPILoader,
-              private menuCtrl: MenuController) { }
+              private menuCtrl: MenuController,
+              private platform: Platform) { }
 
   ngAfterViewInit() {
     //capture input text from template
     let input = <HTMLInputElement>this.document.getElementById('search');
-    let directionsButton = <HTMLButtonElement>this.document.getElementById('directions');
-
-    //load AGM MapAPI
-    this.mapsApiLoader.load().then(() => {
-      //fetch locations
-      this.loadCoffeeshops();
-      
-      //set bounds
-      this.setBounds();
-
-      //initialize directions
-      this.googleMaps.initDirections();
-
-      //initialize autocomplete
-      this.googleMaps.initAutocomplete(input);
-
-      this.googleMaps.initGeocoder();
-    });    
-
-
+    this.platform.ready().then(() => this.googleMaps.initMap(this.map, input));
   }
 
   /** FETCH FIRESTORE LOCATIONS **/
-  loadCoffeeshops(filter?: any) { this.locations = this.firestore.loadColectivo() }
-
-
-  /** GOOGLE MAPS API METHODS **/
-  setBounds() {
-    this.googleMaps.setBounds(this.locations);
-    this.googleMaps.center.subscribe((c) => {
-      this.lat = c.lat;
-      this.lng = c.lng;
-    });
-  } 
-  
-
-
-  /** END GOOGLE MAPS API METHODS **/
-
+  loadCoffeeshops(filter?: any) { 
+    //this.locations = this.firestore.loadColectivo();
+    this.googleMaps.loadCafes(this.map);
+  }
 
   /** AGM-MAP, AGM-MARKER METHODS **/
   onMouseOver(shop: Coffeeshop) {

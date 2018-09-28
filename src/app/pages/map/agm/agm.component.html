@@ -10,15 +10,16 @@
     #search></ion-input>
 </ion-item>
   
-<agm-map 
+<div id="map" #map></div>
+<!--<agm-map 
   #map 
   [latitude]="lat" 
   [longitude]="lng" 
   [zoom]="zoom" 
-  [usePanning]="true">
+  [usePanning]="true">-->
 
   <!--  MARKERS TOGGLE ION MENU  -->
-  <ion-menu-toggle>
+  <!--<ion-menu-toggle>
     <agm-marker 
       #marker
       *ngFor="let shop of locations | async" 
@@ -26,7 +27,7 @@
       [longitude]="shop.latLng.lng"
       (mouseOver)="onMouseOver(shop)">    
     </agm-marker>
-  </ion-menu-toggle>
+  </ion-menu-toggle>-->
   <!--  END MARKERS  -->
 
-</agm-map>
+<!--</agm-map>-->

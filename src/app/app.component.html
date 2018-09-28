@@ -16,17 +16,9 @@
       </ion-header>
       <ion-content>
         <ion-list *ngIf="router.url === '/tabs/map' || router.url === '/tabs/(map:map)'">
-         
-
-          <app-location *ngIf="displayedLocation; else noSelected" [location]="displayedLocation ? displayedLocation : null">
-          </app-location>
-
-          <ng-template #noSelected>
-            <ion-item>
-              <ion-label>Select a Milwaukee location</ion-label>
-            </ion-item>
-          </ng-template>
-
+    
+          <app-location></app-location>
+          
         </ion-list>
       </ion-content>
       <ion-footer>

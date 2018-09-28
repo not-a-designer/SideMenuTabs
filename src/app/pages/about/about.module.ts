@@ -1,11 +1,15 @@
-import { NgModule }     from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule }  from '@angular/forms';
+import { NgModule }             from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CommonModule }         from '@angular/common';
+import { FormsModule }          from '@angular/forms';
 
-import { IonicModule }  from '@ionic/angular';
+import { IonicModule }          from '@ionic/angular';
 
-import { AboutPage }    from './about.page';
+import { AboutPage }            from './about.page';
+
+const routes: Routes = [
+  { path: '', component: AboutPage }
+];
 
 
 @NgModule({
@@ -13,12 +17,7 @@ import { AboutPage }    from './about.page';
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([
-      { 
-        path: '', 
-        component: AboutPage 
-      }
-    ])
+    RouterModule.forChild(routes)
   ],
   
   declarations: [ AboutPage ]

@@ -17,6 +17,11 @@
       <ion-content>
         <ion-list *ngIf="router.url === '/tabs/map' || router.url === '/tabs/(map:map)'">
     
+          <ion-hide-when size="md, lg, xl">
+            <ion-menu-toggle>
+              <radius-slider></radius-slider>
+            </ion-menu-toggle>
+          </ion-hide-when>
           <app-location></app-location>
           
         </ion-list>

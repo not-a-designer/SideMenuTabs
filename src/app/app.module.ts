@@ -8,6 +8,7 @@ import { IonicModule,
          IonicRouteStrategy }                  from '@ionic/angular';
 
 /** IONIC NATIVE PLUGINS **/
+import { Geolocation }                         from '@ionic-native/geolocation/ngx';
 import { SplashScreen }                        from '@ionic-native/splash-screen/ngx';
 import { StatusBar }                           from '@ionic-native/status-bar/ngx';
 
@@ -20,12 +21,13 @@ import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 
 /**APP API CREDENTIALS **/
-import { environment }                         from '../environments/environment.prod';
+import { environment }                         from '@environments/environment.prod';
 /** ROUTING MODULE **/
 import { AppRoutingModule }                    from './app-routing.module';
 /** COMPONENTS **/
 import { AppComponent }                        from './app.component';
-import { LocationComponent }                   from './app-location/app-location.component';
+import { ComponentsModule }                    from './components/components.module';
+//import { LocationComponent }                   from './app-location/app-location.component';
 /** SERVICES **/
 import { FirestoreService }                    from '@app-services/firestore.service';
 import { GoogleMapsService }                   from '@app-services/google-maps.service';
@@ -33,11 +35,10 @@ import { GoogleMapsService }                   from '@app-services/google-maps.s
 
 @NgModule({
   declarations: [ 
-    AppComponent, 
-    LocationComponent
+    AppComponent
   ],
 
-  entryComponents: [ LocationComponent ],
+  entryComponents: [ ],
 
   imports: [
     BrowserModule, 
@@ -45,11 +46,13 @@ import { GoogleMapsService }                   from '@app-services/google-maps.s
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AgmCoreModule.forRoot(environment.agmConfig)
+    AgmCoreModule.forRoot(environment.agmConfig),
+    ComponentsModule
   ],
 
   providers: [
     FirestoreService,
+    Geolocation,
     GoogleMapsAPIWrapper,
     GoogleMapsService,
     StatusBar,

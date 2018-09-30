@@ -86,4 +86,10 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCzS43AhmpzPttB33K_JAty3gumqYn9bsc" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyCYMpeqHO7GRh_5lS4plrkBDNH6OBs1NZk" />
     </plugin>
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
+        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
+    </plugin>
+    <!--<edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+        <string>We want your location! Best regards NSA</string>
+    </edit-config>-->
 </widget>

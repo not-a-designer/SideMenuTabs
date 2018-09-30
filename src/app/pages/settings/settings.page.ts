@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 
 
 @Component({
@@ -6,8 +6,10 @@ import { Component } from '@angular/core';
   templateUrl: 'settings.page.html',
   styleUrls: ['settings.page.scss'],
 })
-export class SettingsPage {
+export class SettingsPage implements OnInit {
 
   constructor() { }
+
+  ngOnInit() {}
 
 }

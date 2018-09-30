@@ -8,7 +8,8 @@ import { IonicModule }                      from '@ionic/angular';
 
 import { AgmCoreModule }                    from '@agm/core';
 
-import { environment }                      from '../../../environments/environment.prod';
+import { environment }                      from '@environments/environment.prod';
+import { ComponentsModule }                 from '../../components/components.module';
 import { TabsPageRoutingModule }            from './tabs.router.module';
 import { TabsPage }                         from './tabs.page';
 import { ContactPageModule }                from '../contact/contact.module';
@@ -25,7 +26,8 @@ import { HomePageModule }                   from '../home/home.module';
     HomePageModule,
     MapPageModule,
     ContactPageModule,
-    AgmCoreModule.forRoot(environment.agmConfig)
+    AgmCoreModule.forRoot(environment.agmConfig),
+    ComponentsModule
   ],
 
   declarations: [ TabsPage ],

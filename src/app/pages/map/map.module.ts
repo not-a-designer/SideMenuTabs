@@ -9,6 +9,7 @@ import { IonicModule }                      from '@ionic/angular';
 
 import { AgmCoreModule }                    from '@agm/core';
 
+import { ComponentsModule }                 from '../../components/components.module';
 import { environment }                      from '../../../environments/environment.prod';
 import { MapPage }                          from './map.page';
 import { AgmComponent }                     from './agm/agm.component';
@@ -25,7 +26,8 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forChild(routes),
     AngularFirestoreModule,
-    AgmCoreModule.forRoot(environment.agmConfig)
+    AgmCoreModule.forRoot(environment.agmConfig),
+    ComponentsModule
   ],
 
   declarations: [ 

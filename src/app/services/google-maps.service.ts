@@ -1,10 +1,15 @@
 import { Injectable, ElementRef } from '@angular/core';
 
-import { MapsAPILoader }          from '@agm/core';
+import { MapsAPILoader }            from '@agm/core';
 
-import { BehaviorSubject }        from 'rxjs';
+import { Platform }                 from '@ionic/angular';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation/ngx';
+
+import { BehaviorSubject }          from 'rxjs';
 
 declare const google: any;
+declare const navigator: any;
+
 const DETAIL_FIELDS: string[] = [ 
   'formatted_address', 
   'geometry', 
@@ -38,39 +43,67 @@ export class GoogleMapsService {
     maximumAge: 0
   };
 
-  allCafes = [];
+  //allCafes = [];
   allMarkers = [];
   allDetails = [];
 
+  center: google.maps.LatLng = null;
+
+  private _radius: number = 2300;
+  zoom: number = 13;
+
+
   selected: google.maps.places.PlaceResult = null;
   selectedPlace: BehaviorSubject<google.maps.places.PlaceResult> = new BehaviorSubject<google.maps.places.PlaceResult>(this.selected);
+  currentRadius: BehaviorSubject<number> = new BehaviorSubject<number>(this._radius);
 
-  constructor(private mapsApiLoader: MapsAPILoader) {
+  constructor(private geolocator: Geolocation, 
+              private mapsApiLoader: MapsAPILoader, 
+              private platform: Platform) {
   }
 
-  initMap(mapRef: ElementRef, searchInput: HTMLInputElement) {
+   initialize(mapRef: ElementRef, searchInput: HTMLInputElement) {
+    
+    this.mapsApiLoader.load().then(async () => {
 
-    this.mapsApiLoader.load().then(() => {
+      
 
-      navigator.geolocation.getCurrentPosition((location) => {
-
-        console.log(location);
-        const center = new google.maps.LatLng({ lat: location.coords.latitude, lng: location.coords.longitude });
-
+      if (this.platform.is('cordova')) {
+        this.center = await this.getNativeLocation();
+        this.initMap(mapRef);
+        console.log('center = ' + this.center);
         this.loadServices();
-
-        this.map = new google.maps.Map(mapRef.nativeElement, {
-          center: center,
-          zoom: 13
-        },
-        (error) => console.log(error),
-        this.options);
-
         this.initPlacesService();
+
         this.initAutocomplete(searchInput);
-        //this.infoWindow = new google.maps.InfoWindow();
-        this.loadCafes(center);
-      });
+
+        setTimeout(() => { this.loadCafes() }, 2000);
+      } 
+      else {
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.center = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          this.initMap(mapRef);
+          console.log('center = ' + this.center);
+          this.loadServices();
+          this.initPlacesService();
+
+          this.initAutocomplete(searchInput);
+
+          /*setTimeout(() => { */this.loadCafes() //}, 500);
+
+        },
+
+        (error) => console.log('navigator error ', error),
+
+        this.options);
+      }
+    });
+  }
+
+  initMap(mapRef: ElementRef) {
+    this.map = new google.maps.Map(mapRef.nativeElement, {
+      center: this.center,
+      zoom: this.zoom
     });
   }
 
@@ -111,35 +144,45 @@ export class GoogleMapsService {
     console.log('Places initialized');
   }
 
-  loadCafes(center) {
-    const request = {
-      location: center,
-      radius: 5500,
+  async loadCafes() {
+    console.log('search center: ' + this.center);
+
+    const request: google.maps.places.PlaceSearchRequest = {
+      location: new google.maps.LatLng(this.center.lat(), this.center.lng()),
+      radius: this._radius,
       name: 'Colectivo'
     };
 
+    console.log({ request });
     this.placesService.nearbySearch(request, (results: google.maps.places.PlaceResult[], status) => {
+      console.log({ request, results, status })
+      //console.dir('status', status);
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         console.log('results: ' + results.length);
-        this.allCafes = results;
 
-        for (let cafe of this.allCafes) { this.getPlaceDetails(cafe) }
+        for (let cafe of results) { this.getPlaceDetails(cafe) }
+
         setTimeout(() => {
-          for (let d of this.allDetails) { this.createMarker(this.allDetails.indexOf(d)) }
-        }, 300);
+          for (let d of this.allDetails) { 
+            this.createMarker(this.allDetails.indexOf(d)) 
+            console.log('loc: ', d.name);
+          }
+        }, 100);
+
       }
       else console.log('nearby search error');
     });
   }
 
   createMarker(index: number) {
-    const loc = { lat: this.allCafes[index].geometry.location.lat(), lng: this.allCafes[index].geometry.location.lng() };
+    const loc = { lat: this.allDetails[index].geometry.location.lat(), lng: this.allDetails[index].geometry.location.lng() };
+    console.log('loc: ', loc);
 
     const marker = new google.maps.Marker({ map: this.map, position: loc });
 
     marker.addListener('mousedown', (event) => {
       this.map.panTo(marker.getPosition());
-      console.log('place: ' + this.allCafes[index].geometry.location.lat() + ', ' + this.allCafes[index].geometry.location.lng());
+      console.log('place: ', loc);
       console.log('marker: ' + marker.position.lat() + ', ' + marker.position.lng());
       this.selected = this.allDetails[index];
       this.selectedPlace.next(this.allDetails[index]);
@@ -153,9 +196,23 @@ export class GoogleMapsService {
 
     this.placesService.getDetails(detailRequest, (p: google.maps.places.PlaceResult, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        console.log(p);
+        console.dir(p);
         this.allDetails.push(p);
       }
     });
+  }
+
+  setRadius(rad: number) { 
+    this._radius = rad;
+    this.currentRadius.next(this._radius);
+    this.loadCafes();
+    console.log(this._radius);
+  }
+
+  async getNativeLocation(): Promise<google.maps.LatLng> {
+    console.log('%c Cordova', 'color: #ff0000;');
+    await this.platform.ready();
+    const position = await this.geolocator.getCurrentPosition(this.options);
+    return  new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
   }
 }

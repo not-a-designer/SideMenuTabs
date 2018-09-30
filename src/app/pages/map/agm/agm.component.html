@@ -1,33 +1,31 @@
-<ion-item>
-  <ion-icon slot="start" name="search"></ion-icon>
-  <ion-input 
-    placeholder="search for location" 
-    autocorrect="off" 
-    autocapitalize="off" 
-    spellcheck="off" 
-    type="text" 
-    id="search"
-    #search></ion-input>
-</ion-item>
+<ion-toolbar color="primary">
+  <ion-buttons slot="start">
+    <ion-icon slot="start" name="search"></ion-icon>
+  </ion-buttons>
   
+  <ion-label>
+    <ion-input 
+      placeholder="search for location" 
+      autocorrect="off" 
+      autocapitalize="off" 
+      spellcheck="off" 
+      type="text" 
+      id="search"
+      #search></ion-input>
+  </ion-label>
+  
+  <ion-buttons slot="end">
+
+    <ion-show-when size="md, lg, xl">
+      <ion-button ion-content slot="end" (click)="toggleRadius()">toggle</ion-button>
+    </ion-show-when>
+
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-show-when size="md, lg, xl">
+    <radius-slider *ngIf="showToggles"></radius-slider>
+</ion-show-when>
+
+
 <div id="map" #map></div>
-<!--<agm-map 
-  #map 
-  [latitude]="lat" 
-  [longitude]="lng" 
-  [zoom]="zoom" 
-  [usePanning]="true">-->
-
-  <!--  MARKERS TOGGLE ION MENU  -->
-  <!--<ion-menu-toggle>
-    <agm-marker 
-      #marker
-      *ngFor="let shop of locations | async" 
-      [latitude]="shop.latLng.lat" 
-      [longitude]="shop.latLng.lng"
-      (mouseOver)="onMouseOver(shop)">    
-    </agm-marker>
-  </ion-menu-toggle>-->
-  <!--  END MARKERS  -->
-
-<!--</agm-map>-->

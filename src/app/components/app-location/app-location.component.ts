@@ -1,11 +1,13 @@
-import { Observable } from 'rxjs';
+
 import { AfterViewInit, 
          Component,
          OnInit }  from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 import { GoogleMapsService } from '@app-services/google-maps.service';
 
-import { Coffeeshop }        from '../interfaces/coffeeshop';
+import { Coffeeshop }        from '../../interfaces/coffeeshop';
 
 
 @Component({
@@ -18,12 +20,14 @@ export class LocationComponent implements OnInit {
   //@Input('location') 
   public location: any;
   location$: Observable<any>;
+  radius$: Observable<number>
 
   constructor(public googleMaps: GoogleMapsService) { 
   }
 
   ngOnInit() {
     this.location$ = this.googleMaps.selectedPlace;
+    this.radius$ = this.googleMaps.currentRadius;
     //this.location = this.googleMaps.selected;
     /*this.googleMaps.selectedPlace.subscribe((loc: google.maps.places.PlaceResult) => {
       this.location = loc;

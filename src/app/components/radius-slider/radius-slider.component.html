@@ -1,17 +1,15 @@
-<ion-item color="danger">
-    
-    <ion-range 
-      #radiusRange 
-      no-padding 
-      [(ngModel)]="radius" 
-      [value]="radius" 
-      id="radius" 
-      min="1600" 
-      max="16000" 
-      debounce="500" 
-      (ionChange)="setRadius(radiusRange.value)">
-      <ion-label slot="start" no-padding>Radius: {{ radiusRange.value }}</ion-label>
-      <ion-icon name="walk" slot="start" horizontal-padding></ion-icon>
-      <ion-icon name="car" slot="end" horizontal-padding></ion-icon>
-    </ion-range>
+<ion-item>
+  <ion-range 
+    #radiusRange 
+    no-padding 
+    [(ngModel)]="radius"
+    id="radius" 
+    min="1600" 
+    max="16000" 
+    debounce="500" 
+    (ionChange)="setRadius(radiusRange.value)">
+    <ion-label slot="start" no-padding>Radius: {{ radiusRange.value }}</ion-label>
+    <ion-icon name="walk" slot="start" horizontal-padding></ion-icon>
+    <ion-icon name="car" slot="end" horizontal-padding></ion-icon>
+  </ion-range>
 </ion-item>

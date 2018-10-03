@@ -10,24 +10,17 @@ import { GoogleMapsService } from '@app-services/google-maps.service';
 })
 export class RadiusSliderComponent implements OnInit {
 
-  radius: number;
+  public radius: number;
 
   constructor(private googleMaps: GoogleMapsService) { }
 
-  ngOnInit() {
-    this.googleMaps.currentRadius.subscribe((rad) => {
-      this.radius = rad;
-      console.log(this.radius);
-    });
+  public ngOnInit(): void {
+    this.googleMaps.currentRadius.subscribe((rad) => this.radius = rad);
   }
 
-  setRadius(rad: number) {
+  public setRadius(rad: number): void {
     if (rad < 1600 || rad > 16000) return;
-
-    else {
-      this.googleMaps.setRadius(rad);
-      //this.googleMaps.loadCafes(this.googleMaps.getCurrentLocation());
-    }
+    else this.googleMaps.setRadius(rad);
   }
 
 }

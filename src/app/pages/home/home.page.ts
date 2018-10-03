@@ -11,10 +11,7 @@ export class HomePage {
 
   constructor(private router: Router) {}
 
-  toAboutPage() {
-    this.router.navigateByUrl('/about');
-  }
-  toSettingsPage() {
-    this.router.navigateByUrl('/settings');
-  }
+  public toAboutPage(): void { this.router.navigateByUrl('/about') }
+  
+  public toSettingsPage(): void { this.router.navigateByUrl('/settings') }
 }

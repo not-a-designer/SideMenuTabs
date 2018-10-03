@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 @Component({
@@ -10,6 +10,6 @@ export class SettingsPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  public ngOnInit(): void {}
 
 }

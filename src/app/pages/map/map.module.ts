@@ -10,7 +10,7 @@ import { IonicModule }                      from '@ionic/angular';
 import { AgmCoreModule }                    from '@agm/core';
 
 import { ComponentsModule }                 from '../../components/components.module';
-import { environment }                      from '../../../environments/environment.prod';
+import { environment }                      from '@environments/environment.prod';
 import { MapPage }                          from './map.page';
 import { AgmComponent }                     from './agm/agm.component';
 

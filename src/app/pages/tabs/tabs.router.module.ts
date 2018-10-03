@@ -48,6 +48,6 @@ const routes: Routes = [
     AngularFirestoreModule,
     RouterModule.forChild(routes)
   ],
-  exports: [RouterModule]
+  exports: [ RouterModule ]
 })
 export class TabsPageRoutingModule {}

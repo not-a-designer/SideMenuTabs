@@ -30,16 +30,16 @@ export class AppComponent {
     this.initializeApp();
   }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+  private async initializeApp(): Promise<void> {
+    await this.platform.ready(); //.then(() => {
+    this.statusBar.styleDefault();
+    this.splashScreen.hide();
 
       //this.loadSelected();
-    });
+    //});
   }
 
-  loadSelected() {    
+  private loadSelected() {    
     /*this.firestore.selectedLocation.subscribe((location) => {
       this.displayedLocation = location;
 

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Router }    from '@angular/router';
 
 
@@ -12,10 +11,10 @@ export class MapPage {
 
   constructor(private router: Router) {}
 
-  toAboutPage() {
+  public toAboutPage() {
     this.router.navigateByUrl('/about');
   }
-  toSettingsPage() {
+  public toSettingsPage() {
     this.router.navigateByUrl('/settings');
   }
 }

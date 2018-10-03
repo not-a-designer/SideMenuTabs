@@ -1,6 +1,9 @@
 <ion-toolbar color="primary">
   <ion-buttons slot="start">
-    <ion-icon slot="start" name="search"></ion-icon>
+    <ion-icon 
+      color="light" 
+      slot="start" 
+      name="search"></ion-icon>
   </ion-buttons>
   
   <ion-label>
@@ -17,15 +20,15 @@
   <ion-buttons slot="end">
 
     <ion-show-when size="md, lg, xl">
-      <ion-button ion-content slot="end" (click)="toggleRadius()">toggle</ion-button>
+      <ion-button size="small" color="light" ion-content slot="end" (click)="toggleRadius()">toggle</ion-button>
     </ion-show-when>
 
   </ion-buttons>
+
 </ion-toolbar>
 
 <ion-show-when size="md, lg, xl">
     <radius-slider *ngIf="showToggles"></radius-slider>
 </ion-show-when>
-
 
 <div id="map" #map></div>

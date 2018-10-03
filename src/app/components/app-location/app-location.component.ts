@@ -1,13 +1,13 @@
 
-import { AfterViewInit, 
+import { ChangeDetectorRef,
          Component,
-         OnInit }  from '@angular/core';
+         OnInit }            from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable }        from 'rxjs';
 
 import { GoogleMapsService } from '@app-services/google-maps.service';
 
-import { Coffeeshop }        from '../../interfaces/coffeeshop';
+declare const google: any;
 
 
 @Component({
@@ -17,35 +17,40 @@ import { Coffeeshop }        from '../../interfaces/coffeeshop';
 })
 export class LocationComponent implements OnInit {
 
-  //@Input('location') 
-  public location: any;
-  location$: Observable<any>;
-  radius$: Observable<number>
+  public location: google.maps.places.PlaceResult;
+  public radius$: Observable<number>;
+  public image: string;
 
-  constructor(public googleMaps: GoogleMapsService) { 
+  constructor(public googleMaps: GoogleMapsService, private cdr: ChangeDetectorRef) { 
   }
 
-  ngOnInit() {
-    this.location$ = this.googleMaps.selectedPlace;
+  public ngOnInit(): void {
     this.radius$ = this.googleMaps.currentRadius;
-    //this.location = this.googleMaps.selected;
-    /*this.googleMaps.selectedPlace.subscribe((loc: google.maps.places.PlaceResult) => {
+    this.googleMaps.selectedPlace.subscribe((loc: google.maps.places.PlaceResult) => {
       this.location = loc;
-      console.log('app-loc: ', this.location)
-    });*/
+      console.log('app-loc: ', this.location);
+      
+      // work around to ensure the observable updates with every change
+      this.cdr.detectChanges();
+    });
+
+    this.googleMaps.selectedPhoto.subscribe(image => {
+      this.image = image;
+      this.cdr.detectChanges();
+    });
   }
 
-  onAbout() {
+  public onAbout() {
     //console.log(`Show more information about the ${this.location.name} location...`);
     //TODO
   }
 
-  onNavigate() {
+  public onNavigate() {
     //console.log(`Navigate to the ${this.location.name} location...`);
     //TODO
   }
 
-  onFavorite() {
+  public onFavorite() {
     //console.log(`Set the ${this.location.name} location as your favorite...`)
     //TODO
   }

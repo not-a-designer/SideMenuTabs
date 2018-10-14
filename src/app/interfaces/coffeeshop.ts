@@ -1,9 +1,13 @@
 export interface Coffeeshop {
     address: string;
-    phone: string;
+    coords: { 
+      lat: number; 
+      lng: number;
+    };
+    locationId: string,
     name: string;
-    latLng: {
-      lat: number,
-      lng: number
-    }
+    phone: string;
+    placeId: string;
+    
+    photoUrl?: string;
   };

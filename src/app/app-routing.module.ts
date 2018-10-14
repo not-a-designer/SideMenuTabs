@@ -1,16 +1,16 @@
 import { NgModule }             from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
   { path: '',         loadChildren: './pages/tabs/tabs.module#TabsPageModule' }, 
-  { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' }, 
-  { path: 'about',    loadChildren: './pages/about/about.module#AboutPageModule' } 
+  { path: 'about',    loadChildren: './pages/about/about.page.module#AboutPageModule' },
+  { path: 'auth',     loadChildren: './pages/auth/auth.page.module#AuthPageModule' },
 ];
 
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes/*, { enableTracing: true }*/) ],
 
   exports: [ RouterModule ]
 })

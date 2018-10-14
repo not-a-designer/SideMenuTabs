@@ -1,5 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Routes, RouterModule }             from '@angular/router';
+import { RouterModule, Routes }             from '@angular/router';
 import { CommonModule }                     from '@angular/common';
 import { FormsModule }                      from '@angular/forms';
 
@@ -14,9 +14,8 @@ import { environment }                      from '@environments/environment.prod
 import { MapPage }                          from './map.page';
 import { AgmComponent }                     from './agm/agm.component';
 
-const routes: Routes = [
-  { path: '', component: MapPage }
-]
+
+const routes: Routes = [{ path: '', component: MapPage }];
 
 
 @NgModule({
@@ -30,10 +29,7 @@ const routes: Routes = [
     ComponentsModule
   ],
 
-  declarations: [ 
-    MapPage, 
-    AgmComponent
-  ],
+  declarations: [ MapPage, AgmComponent ],
 
   entryComponents: [ AgmComponent ],
 

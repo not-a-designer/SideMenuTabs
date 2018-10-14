@@ -7,9 +7,7 @@ import { IonicModule }          from '@ionic/angular';
 
 import { AboutPage }            from './about.page';
 
-const routes: Routes = [
-  { path: '', component: AboutPage }
-];
+const routes: Routes = [{ path: '', component: AboutPage }];
 
 
 @NgModule({

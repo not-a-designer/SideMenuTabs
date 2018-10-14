@@ -21,17 +21,16 @@ export class LocationComponent implements OnInit {
   public radius$: Observable<number>;
   public image: string;
 
-  constructor(public googleMaps: GoogleMapsService, private cdr: ChangeDetectorRef) { 
-  }
+  constructor(public googleMaps: GoogleMapsService, private cdr: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
     this.radius$ = this.googleMaps.currentRadius;
     this.googleMaps.selectedPlace.subscribe((loc: google.maps.places.PlaceResult) => {
       this.location = loc;
       console.log('app-loc: ', this.location);
-      
-      // work around to ensure the observable updates with every change
-      this.cdr.detectChanges();
+
+    // work around to ensure the observable updates with every change
+    this.cdr.detectChanges();
     });
 
     this.googleMaps.selectedPhoto.subscribe(image => {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router }    from '@angular/router';
+//import { Router }    from '@angular/router';
 
 
 @Component({
@@ -9,9 +9,5 @@ import { Router }    from '@angular/router';
 })
 export class HomePage {
 
-  constructor(private router: Router) {}
-
-  public toAboutPage(): void { this.router.navigateByUrl('/about') }
-  
-  public toSettingsPage(): void { this.router.navigateByUrl('/settings') }
+  //constructor(private router: Router) {}
 }

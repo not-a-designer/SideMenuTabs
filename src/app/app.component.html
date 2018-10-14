@@ -1,46 +1,40 @@
 <ion-app>
   <ion-split-pane>
-    
-    <ion-menu #mainMenu>
+    <ion-menu #mainMenu side="start">
       <ion-header>
         <ion-toolbar>
-          <ion-title>Menu</ion-title>
+          <ion-hide-when size="lg, xl">
+            <ion-title>Menu</ion-title>
+          </ion-hide-when>
+
           <ion-buttons slot="end">
             <ion-menu-toggle>
-              <ion-button icon-only routerLink="/settings"> 
-                <ion-icon name="settings"></ion-icon>
+              <ion-button icon-only>
+                <ion-icon name="close"></ion-icon>
               </ion-button>
             </ion-menu-toggle>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
+
       <ion-content>
         <ion-list *ngIf="router.url === '/tabs/map' || router.url === '/tabs/(map:map)'">
     
-          <ion-hide-when size="md, lg, xl">
-            <ion-menu-toggle>
-              <radius-slider></radius-slider>
-            </ion-menu-toggle>
+          <ion-hide-when size="lg, xl">
+            <radius-slider></radius-slider>
           </ion-hide-when>
+
           <app-location></app-location>
-          
         </ion-list>
       </ion-content>
+      
       <ion-footer>
         <ion-toolbar>
-          <ion-title>&copy;&nbsp;Copyright</ion-title>
-          <ion-buttons slot="end">
-            <ion-menu-toggle>
-              <ion-button icon-only routerLink="/about">
-                <ion-icon name="information-circle"></ion-icon>
-              </ion-button>
-            </ion-menu-toggle>
-          </ion-buttons>
+          <ion-title>&copy;</ion-title>
         </ion-toolbar>
       </ion-footer>
     </ion-menu>
-    
-
+   
     <ion-router-outlet main></ion-router-outlet>
 
   </ion-split-pane>

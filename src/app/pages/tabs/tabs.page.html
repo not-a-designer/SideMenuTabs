@@ -1,15 +1,21 @@
-<ion-tabs color="primary">
+<ion-tabs #mainTabs color="primary">
 
-  <ion-tab icon="home" href="/tabs/(home:home)">
+  <ion-tab icon="home" name="home" href="/tabs/(home:home)">
     <ion-router-outlet stack name="home"></ion-router-outlet>
   </ion-tab>
 
-  <ion-tab icon="map" href="/tabs/(map:map)">
+  <ion-tab icon="map" name="map" href="/tabs/(map:map)">
     <ion-router-outlet stack name="map"></ion-router-outlet>
   </ion-tab>
 
-  <ion-tab icon="star" href="/tabs/(contact:contact)">
+  <ion-tab icon="star" name="contact" href="/tabs/(contact:contact)">
     <ion-router-outlet stack name="contact"></ion-router-outlet>
   </ion-tab>
-  
+
+  <ion-tab 
+    [icon]="authStatus ? 'settings' : 'key'" 
+    name="settings" 
+    [href]="authStatus ? '/tabs/(settings:settings)' : '/auth'">
+    <ion-router-outlet stack name="settings"></ion-router-outlet>
+  </ion-tab>
 </ion-tabs>

@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+
+      <ion-title>Login | Coffee Finder</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-card [@autoHeight]="authMode">
+      <ion-card-content [ngSwitch]="authMode">
+        <login-cmp *ngSwitchCase="'login'">
+          <ion-button
+            margin-top 
+            id="login" 
+            size="large"
+            (click)="emailLogin(emailInput.value, passwordInput.value)">
+            <ion-icon slot="start" name="key"></ion-icon>Login
+          </ion-button>
+
+          <ion-row align-items-center text-center padding-top>
+            <ion-col>
+              <ion-button class="social" (click)="googleLogin()">
+                <ion-icon name="logo-googleplus"></ion-icon>
+              </ion-button>
+            </ion-col>
+        
+            <ion-col>
+              <ion-button class="social">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </ion-button>
+            </ion-col>
+        
+            <ion-col>
+              <ion-button class="social">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </login-cmp>
+
+        <register-cmp *ngSwitchCase="'register'">
+          <ion-button 
+            id="register" 
+            margin-top 
+            size="large"
+            (click)="register(emailInput.value, passwordInput.value, confirmInput.value)">
+            <ion-icon slot="start" name="person-add"></ion-icon>Register
+          </ion-button>
+        </register-cmp>
+
+        <ion-item text-center>
+          <ion-button 
+            id="toggle-auth"
+            fill="clear" 
+            (click)="toggleMode()">
+            <ion-label>or {{ authMode === 'login' ? 'register' : 'login' }}</ion-label>
+          </ion-button>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar>
+
+    </ion-toolbar>
+  </ion-footer>
+  

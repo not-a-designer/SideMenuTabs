@@ -9,12 +9,14 @@ import { IonicModule }                      from '@ionic/angular';
 import { AgmCoreModule }                    from '@agm/core';
 
 import { environment }                      from '@environments/environment.prod';
-import { ComponentsModule }                 from '../../components/components.module';
+import { ComponentsModule }                 from '@app-components/components.module';
 import { TabsPageRoutingModule }            from './tabs.router.module';
 import { TabsPage }                         from './tabs.page';
 import { ContactPageModule }                from '../contact/contact.module';
 import { MapPageModule }                    from '../map/map.module';
 import { HomePageModule }                   from '../home/home.module';
+import { AuthPageModule }                   from '../auth/auth.page.module';
+import { SettingsPageModule }               from '../settings/settings.page.module';
 
 
 @NgModule({
@@ -22,15 +24,19 @@ import { HomePageModule }                   from '../home/home.module';
     IonicModule,
     CommonModule,
     FormsModule,
+    RouterModule, 
     TabsPageRoutingModule,
     HomePageModule,
     MapPageModule,
     ContactPageModule,
     AgmCoreModule.forRoot(environment.agmConfig),
-    ComponentsModule
+    ComponentsModule,
+    AuthPageModule,
+    SettingsPageModule
   ],
 
   declarations: [ TabsPage ],
+
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class TabsPageModule {}

@@ -8,23 +8,12 @@ import { TabsPage }                  from './tabs.page';
 import { ContactPage }               from '../contact/contact.page';
 import { HomePage }                  from '../home/home.page';
 import { MapPage }                   from '../map/map.page';
+import { SettingsPage }              from '../settings/settings.page';
 
 
 const routes: Routes = [
-  { 
-    path: '', 
-    redirectTo: '/tabs/(home:home)', 
-    pathMatch: 'full' },
-
-  { 
-    path: 'tabs', 
-    component: TabsPage, 
-    children: [
+  { path: 'tabs', component: TabsPage, children: [
       { 
-        path: '', 
-        redirectTo: '/tabs/(home:home)', 
-        pathMatch: 'full' 
-      }, { 
         path: 'home', 
         outlet: 'home', 
         component: HomePage 
@@ -36,9 +25,17 @@ const routes: Routes = [
         path: 'contact', 
         outlet: 'contact', 
         component: ContactPage 
-      }
-    ]
-  }
+      },  {
+        path: 'settings', 
+        outlet: 'settings',
+        component: SettingsPage
+      }, { 
+        path: '', 
+        redirectTo: '/tabs/(home:home)', 
+        pathMatch: 'full' 
+      }, 
+  ]},
+  { path: '', redirectTo: '/tabs/(home:home)', pathMatch: 'full' },
 ];
 
 

@@ -1,0 +1,27 @@
+<form>
+  <ion-list [@fade] margin-top text-center>
+    <ion-item>
+      <ion-hide-when mode="ios, browser">
+        <ion-label position="floating">Email</ion-label>
+      </ion-hide-when>
+      <ion-input #emailInput type="email" [placeholder]="isAndroid ? '' : 'Email'"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-hide-when mode="ios, browser">
+        <ion-label position="floating">Password</ion-label>
+      </ion-hide-when>
+      <ion-input #passwordInput type="password" [placeholder]="isAndroid ? '' : 'Password'"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-hide-when mode="ios, browser">
+        <ion-label position="floating">Confirm Password</ion-label>
+      </ion-hide-when>
+      <ion-input #confirmInput type="password" [placeholder]="isAndroid ? '' : 'Confirm password'"></ion-input>
+    </ion-item>
+  
+    <ng-content></ng-content>
+    
+  </ion-list>
+</form>

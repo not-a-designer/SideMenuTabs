@@ -17,14 +17,14 @@ import { GoogleMapsService } from '@app-services/google-maps.service';
 })
 export class AgmComponent implements AfterViewInit {
 
-  @ViewChild('map') map: ElementRef;
+  @ViewChild('map') private map: ElementRef;
 
   public lat: number = 43.1506;
   public lng: number = -87.9579;
   public zoom: number = 13;
 
   //public locations: Observable<Coffeeshop[]>;
-  showToggles: boolean = false;
+  public showToggles: boolean = false;
 
   constructor(@Inject(DOCUMENT) private document: Document, 
               //private firestore: FirestoreService,
@@ -39,9 +39,7 @@ export class AgmComponent implements AfterViewInit {
     
   }
 
-  public toggleRadius(): void {
-    this.showToggles = !this.showToggles;
-  }
+  public toggleRadius(): void { this.showToggles = !this.showToggles }
 
   /** FETCH FIRESTORE LOCATIONS **/
   public loadCoffeeshops(filter?: any): void { 

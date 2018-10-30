@@ -1,5 +1,5 @@
 export interface Coffeecard {
-    cardNumber: number;
+    card_id: number;
     locationId: string;
     ownerId: string;
 }

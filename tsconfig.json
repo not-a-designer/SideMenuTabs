@@ -17,8 +17,9 @@
     "paths": {
       "@app-animations/*": ["./app/animations/*"],
       "@app-components/*": ["./app/components/*"],
-      "@app-models/*": ["./app/models/*"],
       "@app-interfaces/*": ["./app/interfaces/*"],
+      "@app-pages/*": ["./app/pages/*"],
+      "@app-pipes/*": ["./app/pipes/*"],
       "@app-services/*": ["./app/services/*"],
       "@environments/*": ["./environments/*"]
     }

@@ -1,45 +1,37 @@
-<ng-container *ngIf="location; else noSelected">
 
-  <ion-card>
+<ion-card *ngIf="location; else noSelected">
+  <ion-img [src]="image"></ion-img>
 
-    <ion-img [src]="image"></ion-img>
+  <ion-card-content>
+    <ion-item>
+      <ion-label no-padding>
+        <h2>{{ location.name }}</h2>
+        <h3 text-wrap>{{ location.formatted_address }}</h3>
+        <p>{{ location.formatted_phone_number }}</p>
+      </ion-label>
+    </ion-item>
 
-    <ion-card-content>
-
-      <ion-item>
-        <ion-label no-padding>
-          <h2>{{ location.name }}</h2>
-          <h3 text-wrap>{{ location.formatted_address }}</h3>
-          <p>{{ location.formatted_phone_number }}</p>
-        </ion-label>
-
-      </ion-item>
-
-      <ion-row>
-        <ion-col size="4" text-center padding>
-          <ion-fab-button mini (click)="onFavorite()">
-            <ion-icon name="star" color="light"></ion-icon>
-          </ion-fab-button>
-        </ion-col>
-    
-        <ion-col size="4" text-center padding>
-          <ion-fab-button mini (click)="onAbout()">
-            <ion-icon color="light" name="information"></ion-icon>
-          </ion-fab-button>
-        </ion-col>
-    
-        <ion-col size="4" text-center padding>
-          <ion-fab-button id="directions" mini (click)="onNavigate()">
-            <ion-icon name="pin" color="light"></ion-icon>
-          </ion-fab-button>
-        </ion-col>
-      </ion-row>
-
-    </ion-card-content>
-
-  </ion-card>
-
-</ng-container> 
+    <ion-row>
+      <ion-col size="4" text-center padding>
+        <ion-fab-button mini (click)="onFavorite()">
+          <ion-icon name="star" color="light"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+  
+      <ion-col size="4" text-center padding>
+        <ion-fab-button mini (click)="onAbout()">
+          <ion-icon color="light" name="information"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+  
+      <ion-col size="4" text-center padding>
+        <ion-fab-button id="directions" mini (click)="onNavigate()">
+          <ion-icon name="pin" color="light"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>
 
 <ng-template #noSelected>
   <ion-item>

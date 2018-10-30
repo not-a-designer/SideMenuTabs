@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/tabs/(search:search)"></ion-back-button>
+        </ion-buttons>
+    <ion-title>Upcoming Events</ion-title>
+  </ion-toolbar>
+  <ion-toolbar padding>
+    <ion-buttons slot="start">
+      <ion-icon name="search"></ion-icon>
+    </ion-buttons>
+    <ion-input 
+      type="text" 
+      autocorrect="off" 
+      autocapitalize="off" 
+      spellcheck="off" 
+      #search 
+      id="search"
+      placeholder="City, state, or zip code"></ion-input>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list color="light">
+    <ion-list-header>
+      <ion-label>
+        <ion-text float-start>All events</ion-text>
+        <ion-text float-end><h6>within 10 mi</h6></ion-text>
+      </ion-label>
+    </ion-list-header>
+
+    
+    <ion-segment [(ngModel)]="eventType" color="light">
+      <ion-segment-button value="upcoming">Upcoming</ion-segment-button>
+      <ion-segment-button value="trending">Trending</ion-segment-button>
+    </ion-segment>
+
+    <ion-card color="light">
+      <ion-item color="light">
+        <ion-thumbnail slot="start">
+          <img src="https://via.placeholder.com/150" />
+        </ion-thumbnail>
+        <label>
+          <p>Day, MMM d, YYYY | hh:mm</p>
+          <h3>Event title</h3>
+          <p>Event location</p>
+          <p>Event details</p>
+        </label>
+      </ion-item>
+
+      <ion-row no-padding align-items-end justify-content-between>
+        <ion-col no-padding size="6">
+          <ion-button no-margin fill="outline" expand="block">
+            <ion-icon name="bookmark"></ion-icon>Interested
+          </ion-button>
+        </ion-col>
+
+        <ion-col no-padding size="6">
+          <ion-button no-margin fill="outline" expand="block">
+            <ion-icon name="more"></ion-icon>Details
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-card color="light">
+      <ion-item color="light">
+        <ion-thumbnail slot="start">
+          <img src="https://via.placeholder.com/150" />
+        </ion-thumbnail>
+        <label color="dark">
+          <p no-padding>Day, MMM d, YYYY | hh:mm</p>
+          <h3 no-padding>Event title</h3>
+          <p>Event location</p>
+          <p>Event details</p>
+        </label>
+      </ion-item>
+
+      <ion-row no-padding align-items-end justify-content-between>
+        <ion-col no-padding size="6">
+          <ion-button no-margin fill="outline" expand="block">
+              <ion-icon name="bookmark"></ion-icon>Interested
+          </ion-button>
+        </ion-col>
+
+        <ion-col no-padding size="6">
+          <ion-button no-margin fill="outline" expand="block">
+              <ion-icon name="more"></ion-icon>Details
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-card color="light">
+      <ion-item color="light">
+        <ion-thumbnail slot="start">
+          <img src="https://via.placeholder.com/150" />
+        </ion-thumbnail>
+        <label color="dark">
+          <p no-padding>Day, MMM d, YYYY | hh:mm</p>
+          <h3 no-padding>Event title</h3>
+          <p>Event location</p>
+          <p>Event details</p>
+        </label>
+      </ion-item>
+      <ion-row no-padding align-items-end justify-content-between>
+        <ion-col no-padding size="6">
+          <ion-button no-margin fill="outline" expand="block">
+              <ion-icon name="bookmark"></ion-icon>Interested
+          </ion-button>
+        </ion-col>
+
+        <ion-col no-padding size="6">
+          <ion-button no-margin fill="outline" expand="block">
+              <ion-icon name="more"></ion-icon>Details
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-list>
+</ion-content>
+
+

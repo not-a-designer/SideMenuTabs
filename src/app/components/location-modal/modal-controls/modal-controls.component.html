@@ -1,0 +1,23 @@
+<ion-show-when size="sm, md, lg, xl">
+  <ion-row no-padding align-items-center justify-content-between>
+    <ion-col no-padding *ngFor="let c of controls">
+      <ion-button no-padding size="small" icon-only fill="clear">
+        <ion-icon [name]="c.icon"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-show-when>
+
+<ion-hide-when size="sm, md, lg, xl">
+  <ion-button 
+    id="dropdown" 
+    float-end 
+    slot="end" 
+    size="small" 
+    shape="round" 
+    fill="clear" 
+    icon-only
+    (click)="showMore()">
+    <ion-icon slot="end" name="more"></ion-icon>
+  </ion-button>
+</ion-hide-when>

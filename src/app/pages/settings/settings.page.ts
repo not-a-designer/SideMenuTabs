@@ -1,11 +1,17 @@
-import { Component, NgZone, OnInit }          from '@angular/core';
-import { Router }                             from '@angular/router';
+import { Component, 
+         NgZone, 
+         OnInit }      from '@angular/core';
+import { Router }      from '@angular/router';
 
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, 
+         LoadingController, 
+        Platform }     from '@ionic/angular';
 
-import { AuthService }                        from '@app-services/auth/auth.service';
-import { User }                               from '@app-interfaces/user';
-import { Observable }                         from 'rxjs';
+import { AuthService } from '@app-services/auth/auth.service';
+import { User }        from '@app-interfaces/user';
+import { Observable }  from 'rxjs';
+
+import * as moment     from 'moment'
 
 
 @Component({
@@ -15,19 +21,20 @@ import { Observable }                         from 'rxjs';
 })
 export class SettingsPage implements OnInit {
 
-  public user$: Observable<User>;
+  public user: User;
 
   constructor(private auth: AuthService, 
               private router: Router,
               private zone: NgZone,
               private alertCtrl: AlertController,
-              private loadingCtrl: LoadingController) { }
+              private loadingCtrl: LoadingController,
+              private platform: Platform) { }
 
   public ngOnInit(): void {
     console.log('checking for user...');
-    this.user$ = this.auth.user$
-
-    this.user$.subscribe(u => console.log('user: ', u))
+    this.auth.user$.subscribe(u => {
+      if (u) this.user = u;
+    });
   }
 
   public async presentSignOutAlert(): Promise<void> {
@@ -49,6 +56,7 @@ export class SettingsPage implements OnInit {
               this.zone.run(() => {
                 console.log('Confirm Okay');
                 this.signOut();
+                if (this.platform.is('cordova')) this.auth.googleSignOut();
               })
               
             }
@@ -68,4 +76,8 @@ export class SettingsPage implements OnInit {
     this.auth.signOut();
     await loader.dismiss();
   }
+
+  get isAndroid(): boolean { return this.platform.is('android') }
+
+  getMaxAge(): string { return moment().subtract(18, 'years').format('YYYY-MM-DD') }
 }

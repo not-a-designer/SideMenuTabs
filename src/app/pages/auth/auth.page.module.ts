@@ -5,9 +5,8 @@ import { Routes, RouterModule }             from '@angular/router';
 
 import { IonicModule }                      from '@ionic/angular';
 
-import { AuthPage }                         from './auth.page';
-import { LoginComponent }                   from './login/login.component';
-import { RegisterComponent }                from './register/register.component';
+import { ComponentsModule }                 from '@app-components/components.module';
+import { AuthPage }                         from '@app-pages/auth/auth.page';
 
 
 const routes: Routes = [{ path: '', component: AuthPage }];
@@ -18,20 +17,12 @@ const routes: Routes = [{ path: '', component: AuthPage }];
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    ComponentsModule
   ],
-  declarations: [
-    AuthPage,
-    LoginComponent,
-    RegisterComponent
-  ],
-  exports: [
-    AuthPage, 
-    LoginComponent, 
-    RegisterComponent 
-  ],
+  declarations: [ AuthPage ],
 
-  entryComponents: [ RegisterComponent, LoginComponent ],
+  exports: [ AuthPage ],
 
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

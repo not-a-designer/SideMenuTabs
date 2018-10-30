@@ -2,16 +2,17 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule }                     from '@angular/common';
 import { FormsModule }                      from '@angular/forms';
-import { RouterModule, Routes }             from '@angular/router';
+//import { RouterModule, Routes }             from '@angular/router';
 
 import { IonicModule }                      from '@ionic/angular';
 
 import { ComponentsModule }                 from '@app-components/components.module';
-import { SettingsPage }                     from './settings.page';
-import { AuthPageModule }                   from '../auth/auth.page.module';
+import { PipesModule }                      from '@app-pipes/pipes.module';
+import { SettingsPage }                     from '@app-pages/settings/settings.page';
+//import { AuthPageModule }                   from '@app-pages/auth/auth.page.module';
 
 
-const routes: Routes = [{ path: '', component: SettingsPage }];
+//const routes: Routes = [{ path: '', component: SettingsPage }];
 
 
 @NgModule({
@@ -19,14 +20,13 @@ const routes: Routes = [{ path: '', component: SettingsPage }];
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
+    //RouterModule.forChild(routes),
     ComponentsModule,
-    AuthPageModule
+    PipesModule,
+    //AuthPageModule
   ],
 
   declarations: [ SettingsPage ],
-
-  entryComponents: [],
 
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

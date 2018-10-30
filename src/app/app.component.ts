@@ -1,16 +1,14 @@
-import { ChangeDetectorRef, Component}         from '@angular/core';
-import { Router }           from '@angular/router'
+import { GoogleMapsService }                from './services/google-maps/google-maps.service';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Router }                           from '@angular/router';
 
-import { Platform }         from '@ionic/angular';
-import { SplashScreen }     from '@ionic-native/splash-screen/ngx';
-import { StatusBar }        from '@ionic-native/status-bar/ngx';
+import { Platform, Menu }                   from '@ionic/angular';
+import { SplashScreen }                     from '@ionic-native/splash-screen/ngx';
+import { StatusBar }                        from '@ionic-native/status-bar/ngx';
+//import { Observable }       from 'rxjs';
 
-import { Observable }       from 'rxjs';
-
-import { FirestoreService } from '@app-services/firestore.service';
-import { Coffeeshop }       from './interfaces/coffeeshop';
-import { AuthService }      from '@app-services/auth/auth.service';
-import { User }             from '@app-interfaces/user';
+//import { FirestoreService } from '@app-services/firestore/firestore.service';
+//import { Coffeeshop }       from './interfaces/coffeeshop';
 
 
 @Component({
@@ -20,38 +18,41 @@ import { User }             from '@app-interfaces/user';
 })
 export class AppComponent {
 
-  public displayedLocation: Coffeeshop;
-  public selectedLocation$: Observable<any>;
-  user: User;
+  @ViewChild('mainMenu') mainMenu: Menu;
 
-  constructor(private firestore: FirestoreService,
-              private auth: AuthService,
-              private cdr: ChangeDetectorRef,
+  //public displayedLocation: Coffeeshop;
+  //public selectedLocation$: Observable<any>;
+
+  constructor(//private firestore: FirestoreService,
+              private googleMaps: GoogleMapsService,
+              public router: Router,
               private platform: Platform,
               private splashScreen: SplashScreen,
-              private statusBar: StatusBar,
-              public router: Router) {
+              private statusBar: StatusBar) {
                 
     this.initializeApp();
   }
 
   private async initializeApp(): Promise<void> {
-    await this.platform.ready(); //.then(() => {
-    this.statusBar.styleDefault();
-    this.splashScreen.hide();
+    try {
+      await this.platform.ready();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
 
       //this.loadSelected();
+    }
+    catch(e) { console.log('initializeApp() error: ', e) }
+  }
 
-    this.auth.user$.subscribe((u) => {
-      if (u) {
-        this.user = u;
-        console.log('app-user: ', this.user.uid);
-        this.cdr.detectChanges();
-      }
-      else this.user = null;
-      this.cdr.detectChanges();
-    });
-    //});*/
+  public showModal() {
+    this.googleMaps.setInfoWindow(null, null, null);
+  }
+
+  checkRouterUrl() {
+    if (this.router.url.includes('search')) return false;
+    else if (this.router.url.includes('settings')) return false
+    else if (this.router.url.includes('auth')) return false;
+    else return true;
   }
 
   private loadSelected() {    
@@ -64,14 +65,4 @@ export class AppComponent {
       }
     });*/
   }
-
-  public isNotAuthPage() {
-    if (this.router.url == '/auth') {
-      console.log('authpage');
-      return false;
-    }
-    return true;
-  }
-
-
 }

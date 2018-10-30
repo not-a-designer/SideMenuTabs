@@ -10,6 +10,13 @@
 
     <ion-title>Contact</ion-title>
 
+    <ion-buttons slot="end">
+      <ion-button *ngIf="!user" routerLink="/auth">
+        <ion-label>Login</ion-label>
+        <ion-icon slot="end" name="log-in"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
   </ion-toolbar>
 </ion-header>
 

@@ -1,13 +1,15 @@
-import { Component, 
+import { ChangeDetectorRef, 
+         Component, 
          OnInit, 
-         ViewChild }           from '@angular/core';
-import { Router, RouterEvent } from '@angular/router';
+         ViewChild }            from '@angular/core';
+import { Router, RouterEvent }   from '@angular/router';
 
-import { Tabs }                from '@ionic/angular';
+import { Tabs, ModalController } from '@ionic/angular';
 
-import { last }                from 'rxjs/operators';
+import { last }                  from 'rxjs/operators';
 
-import { AuthService }         from '@app-services/auth/auth.service';
+import { AuthService }           from '@app-services/auth/auth.service';
+import { GoogleMapsService }     from '@app-services/google-maps/google-maps.service';
 
 
 @Component({
@@ -20,9 +22,15 @@ export class TabsPage implements OnInit {
   @ViewChild('mainTabs') 
   public mainTabs: Tabs;
 
-  public authStatus: boolean = false
+  public authStatus: boolean = false;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  currentUrl: any;
+
+  constructor(private auth: AuthService, 
+              private googleMaps: GoogleMapsService,
+              private router: Router, 
+              private cdr: ChangeDetectorRef,
+              private modalCtrl: ModalController) {}
 
   public ngOnInit(): void {
     this.auth.user$.subscribe((u) => {
@@ -31,7 +39,28 @@ export class TabsPage implements OnInit {
     });
     this.router.events.pipe(last())
       .subscribe((event: RouterEvent) => {
-        console.log('navigationEnd, ', event.url)
-      })
+        this.currentUrl = event.url
+        //console.log(event);
+        console.log('navigationEnd, ', this.currentUrl);
+        this.cdr.detectChanges();
+      });
+  }
+
+  public async logTabs(event) {
+    if (await this.modalCtrl.getTop() != undefined) await this.modalCtrl.dismiss();
+    console.log(event);
+    try {
+      const selectedTab = await this.mainTabs.getSelected()
+      if (selectedTab) console.log(selectedTab.title);
+    }
+    catch(e) { console.log('selectedTab() error: ', e) }
+  }
+
+  public async logCurrentTab(event) {
+    try {
+      const currentTab = await this.mainTabs.getSelected();
+      if (currentTab) console.log(currentTab.title);
+    }
+    catch(e) { console.log('currentTab() error: ', e) }
   }
 }

@@ -11,15 +11,7 @@
   <ion-content padding>
     <ion-card [@autoHeight]="authMode">
       <ion-card-content [ngSwitch]="authMode">
-        <login-cmp *ngSwitchCase="'login'">
-          <ion-button
-            margin-top 
-            id="login" 
-            size="large"
-            (click)="emailLogin(emailInput.value, passwordInput.value)">
-            <ion-icon slot="start" name="key"></ion-icon>Login
-          </ion-button>
-
+        <login-cmp *ngSwitchCase="'login'" (onLoginInput)="emailLogin($event)">
           <ion-row align-items-center text-center padding-top>
             <ion-col>
               <ion-button class="social" (click)="googleLogin()">
@@ -41,15 +33,7 @@
           </ion-row>
         </login-cmp>
 
-        <register-cmp *ngSwitchCase="'register'">
-          <ion-button 
-            id="register" 
-            margin-top 
-            size="large"
-            (click)="register(emailInput.value, passwordInput.value, confirmInput.value)">
-            <ion-icon slot="start" name="person-add"></ion-icon>Register
-          </ion-button>
-        </register-cmp>
+        <register-cmp *ngSwitchCase="'register'"></register-cmp>
 
         <ion-item text-center>
           <ion-button 

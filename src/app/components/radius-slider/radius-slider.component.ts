@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { GoogleMapsService } from '@app-services/google-maps.service';
+import { GoogleMapsService } from '@app-services/google-maps/google-maps.service';
 
 
 @Component({
@@ -15,12 +15,11 @@ export class RadiusSliderComponent implements OnInit {
   constructor(private googleMaps: GoogleMapsService) { }
 
   public ngOnInit(): void {
-    this.googleMaps.currentRadius.subscribe((rad) => this.radius = rad);
+    this.googleMaps.currentRadius.subscribe((rad) => {
+      console.log(rad);
+      this.radius = rad;
+    });
   }
 
-  public setRadius(rad: number): void {
-    if (rad < 1600 || rad > 16000) return;
-    else this.googleMaps.setRadius(rad);
-  }
-
+  public setRadius(): void { this.googleMaps.setRadius(this.radius) }
 }

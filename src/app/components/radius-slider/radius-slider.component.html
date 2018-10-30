@@ -1,8 +1,9 @@
 <ion-item>
   <ion-range 
-    #radiusRange 
+    #radiusRange
+    name="radius"
+    [value]="radius"
     no-padding 
-    [(ngModel)]="radius"
     id="radius" 
     min="1600" 
     max="16000" 

@@ -1,21 +1,40 @@
-<ion-tabs #mainTabs color="primary">
-
-  <ion-tab icon="home" name="home" href="/tabs/(home:home)">
-    <ion-router-outlet stack name="home"></ion-router-outlet>
-  </ion-tab>
-
-  <ion-tab icon="map" name="map" href="/tabs/(map:map)">
-    <ion-router-outlet stack name="map"></ion-router-outlet>
-  </ion-tab>
-
-  <ion-tab icon="star" name="contact" href="/tabs/(contact:contact)">
-    <ion-router-outlet stack name="contact"></ion-router-outlet>
+<ion-tabs 
+  #mainTabs 
+   color="primary"
+  (ionChange)="logTabs($event)"
+  (ionNavWillChange)="logCurrentTab($event)">
+  
+  <ion-tab 
+    icon="paper" 
+    name="activity" 
+    title="activity" 
+    href="/tabs/(activity:activity)">
+    <ion-router-outlet stack name="activity"></ion-router-outlet>
   </ion-tab>
 
   <ion-tab 
-    [icon]="authStatus ? 'settings' : 'key'" 
+    icon="map" 
+    name="map" 
+    title="map" 
+    href="/tabs/(map:map)">
+    
+    <ion-router-outlet stack name="map"></ion-router-outlet>
+  </ion-tab>
+
+  <ion-tab 
+    icon="search" 
+    name="search" 
+    title="search" 
+    href="/tabs/(search:search)">
+    <ion-router-outlet stack name="search"></ion-router-outlet>
+  </ion-tab>
+
+  <ion-tab 
+    [disabled]="authStatus == false"
+    icon="person" 
     name="settings" 
-    [href]="authStatus ? '/tabs/(settings:settings)' : '/auth'">
+    title="settings"
+    href="/tabs/(settings:settings)">
     <ion-router-outlet stack name="settings"></ion-router-outlet>
   </ion-tab>
 </ion-tabs>

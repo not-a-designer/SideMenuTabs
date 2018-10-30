@@ -6,13 +6,63 @@
           <ion-icon name="menu"></ion-icon>
         </ion-button>
       </ion-menu-toggle>
+      <ion-icon 
+        color="light" 
+        slot="start" 
+        name="search"></ion-icon>
     </ion-buttons>
 
-    <ion-title>Coffee Finder</ion-title>    
-    
+    <ion-input 
+      placeholder="Find coffee!" 
+      autocorrect="off" 
+      autocapitalize="off" 
+      spellcheck="off" 
+      type="text" 
+      id="search"
+      #search></ion-input>
+
+    <ion-buttons [slot]="!user ? 'primary' : 'end'">
+      <ion-show-when size="lg, xl">
+        <ion-button 
+          icon-only
+          size="small" 
+          color="light" 
+          slot="end" 
+          (click)="toggleRadius()">
+        <ion-icon [@fadeIn] name="add" *ngIf="!showToggles"></ion-icon>
+        <ion-icon [@fadeIn] name="remove" *ngIf="showToggles"></ion-icon>
+      </ion-button>
+      </ion-show-when>
+    </ion-buttons>
+
+    <ion-buttons slot="end" *ngIf="!user">
+      <ion-button  icon-only routerLink="/auth">
+        <ion-icon slot="end" name="log-in"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+      <ion-segment [(ngModel)]="viewMode" color="light" (ionChange)="segmentChanged($event)">
+          <ion-segment-button #mapView value="map">
+            <ion-icon [name]="mapView.value"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button #listView value="list">
+            <ion-icon [name]="listView.value"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <app-agm></app-agm>
+<ion-content [ngSwitch]="viewMode">
+  
+  <ion-show-when size="lg, xl">
+    <radius-slider [@fadeIn] *ngIf="showToggles"></radius-slider>
+  </ion-show-when>
+  
+  
+
+  <list-view *ngSwitchCase="'list'"></list-view>
+ 
+  <map-view *ngSwitchCase="'map'"></map-view>
 </ion-content>
+

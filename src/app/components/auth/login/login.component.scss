@@ -1,0 +1,21 @@
+ion-button, ion-fab-button, ion-row {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+ion-item, ion-row, ion-col {
+    --background: #fff !important;
+}
+ion-list, ion-row, ion-input, ion-col {
+    background-color: #fff !important;
+}
+
+.social {
+    --border-radius: 50% !important;
+    --width: 60px;
+    --height: 60px;
+}
+
+#login, ion-row {
+    max-width: 600px;
+    
+}

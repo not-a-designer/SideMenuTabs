@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button icon-only>
+          <ion-icon name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+      <ion-icon 
+        color="light" 
+        slot="start" 
+        name="cafe"></ion-icon>
+    </ion-buttons>
+  
+    <ion-input 
+      placeholder="Search all" 
+      autocorrect="off" 
+      autocapitalize="off" 
+      spellcheck="off" 
+      type="text" 
+      id="search"
+      #search></ion-input>
+  
+    <ion-buttons slot="end">
+      <ion-hide-when size="sm, md, lg, xl">
+        <ion-button icon-only href="/tabs/(search:nearby)">
+          <ion-icon name="locate"></ion-icon>
+        </ion-button>
+  
+        <ion-button icon-only href="/tabs/(search:upcoming)">
+          <ion-icon name="time"></ion-icon>
+        </ion-button>
+      </ion-hide-when>
+
+      <ion-button *ngIf="!user" icon-only href="/auth">
+        <ion-icon slot="end" name="log-in"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-show-when size="sm, md, lg. xl">
+      <ion-item-group>  
+        <ion-item button detail="true" href="/tabs/(search:nearby)">
+          <ion-icon name="locate" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Nearby Venues</h3>
+            <p>Find coffee nearby</p>
+          </ion-label>
+        </ion-item>
+  
+        <ion-item button detail="true" href="/tabs/(search:upcoming)">
+          <ion-icon name="calendar" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Upcoming Events</h3>
+            <p>See whats coming up</p>
+          </ion-label>
+        </ion-item>
+      </ion-item-group>
+    </ion-show-when>
+
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>By rating</ion-label>
+      </ion-item-divider>
+
+      <ion-item button detail="true" href="/tabs/(search:coffee/top)">
+        <ion-icon name="medal" slot="start"></ion-icon>
+        <ion-label>
+          <h3>Top Coffees</h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item button detail="true" href="/tabs/(search:coffeeshops/top)">
+        <ion-icon name="ribbon" slot="start"></ion-icon>
+        <ion-label>
+          <h3>Top Coffeeshops</h3>
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>By popularity</ion-label>
+      </ion-item-divider>
+
+      <ion-item button detail="true" href="/tabs/(search:coffee/trending)">
+        <ion-icon name="cafe" slot="start"></ion-icon>
+        <ion-label>
+          <h3>Trending Coffees</h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item button detail="true" href="/tabs/(search:coffeeshops/trending)">
+        <ion-icon name="pin" slot="start"></ion-icon>
+        <ion-label>
+          <h3>Trending Coffeeshops</h3>
+        </ion-label>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-divider>Global</ion-item-divider>
+
+    <ion-item button detail="true">
+      <ion-icon name="globe" slot="start"></ion-icon>
+      <ion-label>
+        <h3>World Feed</h3>
+      </ion-label>
+    </ion-item>
+
+
+
+    <!--<trending-coffee *ngSwitchCase="'trending'"></trending-coffee>
+    <top-coffee *ngSwitchCase="'top'"></top-coffee>
+    <coffee-events *ngSwitchCase="'events'"></coffee-events>-->
+  </ion-list>
+</ion-content>

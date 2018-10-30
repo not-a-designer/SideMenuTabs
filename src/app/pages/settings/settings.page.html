@@ -11,15 +11,144 @@
     <ion-title>Settings</ion-title>
 
     <ion-buttons slot="end">
-      <ion-button icon-only (click)="presentSignOutAlert()">
-        <ion-icon name="log-out"></ion-icon>
+      <ion-button  (click)="presentSignOutAlert()">
+        <ion-label>Logout</ion-label>
+        <ion-icon slot="end" name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card *ngIf="user$ | async as user">
-    {{ user.uid }}
+  <ion-card color="light" *ngIf="user">
+    <ion-card-content>
+      <ion-list>
+        <ion-item-group>
+          <ion-item-divider color="light">
+            <ion-icon color="primary" slot="start" name="people"></ion-icon>
+            <ion-label color="dark">&nbsp;User Details</ion-label>
+          </ion-item-divider>
+
+          <ion-item color="primary">
+            <ion-label slot="start" position="fixed">Display name</ion-label>
+            <ion-input 
+              id="username"
+              name="username"
+              type="text" 
+              placeholder="Username not set"
+              [(ngModel)]="user.displayName"></ion-input>
+          </ion-item>
+    
+          <ion-item color="primary">
+            <ion-label slot="start" position="fixed">First name</ion-label>
+            <ion-input 
+              id="firstName"
+              name="firstName"
+              #firstName
+              type="text" 
+              placeholder="First name not set"
+              [(ngModel)]="user.firstName"></ion-input>
+          </ion-item>
+    
+          <ion-item color="primary">
+            <ion-label slot="start" position="fixed">Last name</ion-label>
+            <ion-input 
+              id="lastName"
+              name="lastName"
+              #lastName
+              type="text" 
+              placeholder="Last name not set"
+              [(ngModel)]="user.lastName"></ion-input>
+          </ion-item>
+    
+          <ion-item color="primary">
+            <ion-label slot="start" position="fixed">Birthdate</ion-label>
+            <ion-datetime 
+              display-format="MMMM D, YYYY" 
+              picker-format="MMMM DD YYYY" 
+              [max]="getMaxAge()"
+              [placeholder]="user.birthdate || 'Birthdate not set'"
+              [(ngModel)]="user.birthdate"> </ion-datetime>
+          </ion-item>
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider color="light">
+            <ion-icon color="primary" slot="start" [name]="user.favorite ? 'star' :'star-outline'"></ion-icon>
+            <ion-label color="dark">&nbsp;Favorite Location</ion-label>
+          </ion-item-divider>
+
+          <ng-container *ngIf="user.favorite; else noFavorite">
+            <ion-item color="primary">
+              <ion-label>{{ user.favorite.name }}</ion-label>
+            </ion-item>
+          </ng-container>
+
+          <ng-template #noFavorite>
+            <ion-item color="primary">
+              <ion-label>No Favorite Location</ion-label>
+              <ion-button slot="end" href="/tabs/(map:map)">
+                <ion-icon name="add"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ng-template>
+        </ion-item-group>
+    
+        <ion-item-group>
+          <ion-item-divider color="light">
+              <ion-icon color="primary" slot="start" name="card"></ion-icon>
+            <ion-label color="dark">&nbsp;Member cards</ion-label>
+          </ion-item-divider>
+
+          <ng-container *ngIf="user.cards && user.cards.length; else noCards">
+            <ion-item color="primary" *ngFor="let card of user.cards">
+              <ion-label>{{ card.cardNumber }}</ion-label>
+            </ion-item>
+          </ng-container>
+
+          <ng-template #noCards>
+            <ion-item color="primary">
+              <ion-label>No saved cards</ion-label>
+              <ion-button slot="end" icon-only>
+                <ion-icon name="add"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ng-template>
+          
+        </ion-item-group>
+        <ion-item-group>
+          <ion-item-divider color="light">
+            <ion-icon color="primary" slot="start" name="contact"></ion-icon>
+            <ion-label color="dark">&nbsp;Email & Password</ion-label>
+          </ion-item-divider>
+
+          <ion-item text-center color="primary">
+            <ion-show-when size="sm, md, lg, xl">
+                <ion-note text-wrap slot="start">
+                    <ion-label>{{ user.email }}</ion-label>
+                  </ion-note>
+            </ion-show-when>
+            <ion-hide-when size="sm, md, lg, xl">
+              <ion-note text-wrap slot="start">
+                  <ion-label>{{ user.email | reverseTruncate : 5 }}</ion-label>
+              </ion-note>
+            </ion-hide-when>
+            
+            <ion-button slot ="end">
+              <ion-icon name="build"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <ion-item text-center color="primary">
+            <ion-note slot="start">
+              <ion-label>**************</ion-label>
+            </ion-note>
+            <ion-button slot ="end">
+              <ion-icon name="build"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
+    </ion-card-content>
   </ion-card>
 </ion-content>

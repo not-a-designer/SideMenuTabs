@@ -5,7 +5,7 @@ import { FormsModule }          from '@angular/forms';
 
 import { IonicModule }          from '@ionic/angular';
 
-import { ContactPage }          from './contact.page';
+import { ContactPage }          from '@app-pages/contact/contact.page';
 
 
 const routes: Routes = [{ path: '', component: ContactPage }];

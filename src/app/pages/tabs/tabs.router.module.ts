@@ -1,41 +1,39 @@
+
 import { NgModule }                  from '@angular/core';
-import { Routes, RouterModule }      from '@angular/router';
+import { RouterModule, Routes }      from '@angular/router';
 
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule }    from '@angular/fire/firestore';
 
-import { TabsPage }                  from './tabs.page';
-import { ContactPage }               from '../contact/contact.page';
-import { HomePage }                  from '../home/home.page';
-import { MapPage }                   from '../map/map.page';
-import { SettingsPage }              from '../settings/settings.page';
+import { TabsPage }                  from '@app-pages/tabs/tabs.page';
+import { ActivityPage }              from '@app-pages/activity/activity.page';
+import { MapPage }                   from '@app-pages/map/map.page';
+import { SearchPage }                from '@app-pages/search/search.page';
+import { SettingsPage }              from '@app-pages/settings/settings.page';
+import { NearbyPage }                from '@app-pages/search/nearby/nearby.page';
+import { UpcomingPage }              from '@app-pages/search/upcoming/upcoming.page';
+import { CoffeeSearchPage }          from '@app-pages/search/coffee-search/coffee-search.page';
+import { CoffeeshopSearchPage }      from '@app-pages/search/coffeeshop-search/coffeeshop-search.page';
 
 
 const routes: Routes = [
   { path: 'tabs', component: TabsPage, children: [
-      { 
-        path: 'home', 
-        outlet: 'home', 
-        component: HomePage 
-      },  { 
-        path: 'map', 
-        outlet: 'map', 
-        component: MapPage 
-      }, { 
-        path: 'contact', 
-        outlet: 'contact', 
-        component: ContactPage 
-      },  {
-        path: 'settings', 
-        outlet: 'settings',
-        component: SettingsPage
-      }, { 
-        path: '', 
-        redirectTo: '/tabs/(home:home)', 
-        pathMatch: 'full' 
-      }, 
+    /** MAIN TABS **/
+      { path: 'activity', outlet: 'activity', component: ActivityPage },
+      { path: 'map', outlet: 'map', component: MapPage },
+      { path: 'search', outlet: 'search', component: SearchPage },
+      { path: 'settings', outlet: 'settings', component: SettingsPage },
+
+      /** SECONDARY TAB ROUTES */
+      { path: 'nearby', outlet: 'search', component: NearbyPage },
+      { path: 'upcoming', outlet: 'search', component: UpcomingPage },
+      { path: 'coffee/:view', outlet: 'search', component: CoffeeSearchPage },
+      { path: 'coffeeshops/:view', outlet: 'search', component: CoffeeshopSearchPage }, 
+
+      /** EMPTY PATH REDIRECT **/
+      { path: '', redirectTo: '/tabs/(activity:activity)', pathMatch: 'full' }
   ]},
-  { path: '', redirectTo: '/tabs/(home:home)', pathMatch: 'full' },
+  { path: '', redirectTo: '/tabs/(activity:activity)', pathMatch: 'full' }
 ];
 
 

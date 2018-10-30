@@ -5,7 +5,8 @@ import { ChangeDetectorRef,
 
 import { Observable }        from 'rxjs';
 
-import { GoogleMapsService } from '@app-services/google-maps.service';
+import { GoogleMapsService } from '@app-services/google-maps/google-maps.service';
+
 
 declare const google: any;
 

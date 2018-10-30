@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/(search:search)"></ion-back-button>
+    </ion-buttons>
+
+    <ion-input 
+      [placeholder]="searchPlaceholder" 
+      autocorrect="off" 
+      autocapitalize="off" 
+      spellcheck="off" 
+      type="text" 
+      id="search"
+      #search></ion-input>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment color="light" [(ngModel)]="locale">
+      <ion-segment-button value="local">
+        <ion-icon name="home"></ion-icon>Local
+      </ion-segment-button>
+      <ion-segment-button value="global">
+        <ion-icon name="globe"></ion-icon>Global
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+</ion-content>

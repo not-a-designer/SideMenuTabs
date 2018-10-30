@@ -19,3 +19,7 @@ ion-list, ion-row, ion-input, ion-col {
     max-width: 600px;
     
 }
+
+.ng-invalid:not(form) {
+    border-left: 5px solid var(--ion-color-danger);
+}

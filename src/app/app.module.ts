@@ -8,7 +8,8 @@ import { RouterModule, RouteReuseStrategy }    from '@angular/router';
 /**         IONIC           **/
 import { IonicModule, 
          IonicRouteStrategy }                  from '@ionic/angular';
-
+/**     IONIC STORAGE       **/
+import { IonicStorageModule }                  from '@ionic/storage';
 /**  IONIC NATIVE PLUGINS   **/
 import { Geolocation }                         from '@ionic-native/geolocation/ngx';
 import { GooglePlus }                          from '@ionic-native/google-plus/ngx';
@@ -28,17 +29,19 @@ import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 import { environment }                         from '@environments/environment.prod';
 /**      ROUTING MODULE     **/
 import { AppRoutingModule }                    from './app-routing.module';
-/**          GUARDS         **/
-import { AuthGuard }                           from '@app-services/auth/auth.guard';
+import { LocationModalPageModule }             from '@app-pages/location-modal/location-modal.page.module';
 /**        COMPONENTS       **/
 import { AppComponent }                        from './app.component';
 import { ComponentsModule }                    from '@app-components/components.module';
-import { AuthPageModule }                      from './pages/auth/auth.page.module'
+import { PipesModule }                         from '@app-pipes/pipes.module';
+import { AuthPageModule }                      from '@app-pages/auth/auth.page.module';
+import { ServicesModule }                      from '@app-services/services.module';
 /**         SERVICES        **/
-import { AuthService }                         from '@app-services/auth/auth.service';
-import { FirestoreService }                    from '@app-services/firestore.service';
-import { GoogleMapsService }                   from '@app-services/google-maps.service';
-
+/*import { AuthService }                         from '@app-services/auth/auth.service';
+import { FirestoreService }                    from '@app-services/firestore/firestore.service';
+import { GoogleMapsService }                   from '@app-services/google-maps/google-maps.service';
+import { IonicStorageService }                 from '@app-services/ionic-storage/ionic-storage.service';
+*/
 
 @NgModule({
   declarations: [ AppComponent ],
@@ -48,6 +51,7 @@ import { GoogleMapsService }                   from '@app-services/google-maps.s
     BrowserAnimationsModule,
     FormsModule,
     IonicModule.forRoot(), 
+    IonicStorageModule.forRoot(),
     RouterModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -55,17 +59,22 @@ import { GoogleMapsService }                   from '@app-services/google-maps.s
     AngularFirestoreModule,
     AgmCoreModule.forRoot(environment.agmConfig),
     ComponentsModule,
-    AuthPageModule
+    PipesModule,
+    AuthPageModule,
+    LocationModalPageModule,
+    ServicesModule
   ],
 
+  entryComponents: [ ],
+
   providers: [
-    AuthGuard,
-    AuthService,
-    FirestoreService,
+    //AuthService,
+    //FirestoreService,
     Geolocation,
     GoogleMapsAPIWrapper,
-    GoogleMapsService,
+    //GoogleMapsService,
     GooglePlus,
+    //IonicStorageService,
     StatusBar,
     SplashScreen,
     WebView,

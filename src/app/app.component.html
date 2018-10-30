@@ -15,16 +15,25 @@
             </ion-menu-toggle>
           </ion-buttons>
         </ion-toolbar>
+        <ion-toolbar *ngIf="checkRouterUrl()">
+          <ion-hide-when size="lg, xl">
+            <radius-slider *ngIf="router.url === '/tabs/map' || router.url === '/tabs/(map:map)'"></radius-slider>
+          </ion-hide-when>
+        </ion-toolbar>
       </ion-header>
 
-      <ion-content>
-        <ion-list *ngIf="router.url === '/tabs/map' || router.url === '/tabs/(map:map)'">
-    
-          <ion-hide-when size="lg, xl">
-            <radius-slider></radius-slider>
-          </ion-hide-when>
-
-          <app-location></app-location>
+      <ion-content no-padding>
+        <ion-list>
+          <ion-menu-toggle>
+            <ion-button 
+            size="large" 
+            expand="full" 
+            (click)="showModal()" 
+            *ngIf="router.url === '/tabs/map' || router.url === '/tabs/(map:map)'">
+              <ion-label>Show Modal</ion-label>
+            </ion-button>
+          </ion-menu-toggle>
+          <!--<app-location></app-location>-->
         </ion-list>
       </ion-content>
       

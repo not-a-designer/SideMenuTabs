@@ -2,6 +2,16 @@ ion-split-pane {
     --border: 0px;
 }
 
+ion-menu {
+    max-width: 300px !important;
+}
+
 #auth-button {
     padding-top: 80vh !important;
 }
+
+ion-modal {
+    ion-backdrop {
+      visibility: visible !important;
+    }
+  }

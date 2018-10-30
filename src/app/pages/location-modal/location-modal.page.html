@@ -1,0 +1,63 @@
+<ion-content no-padding scrollY="false" color="primary">
+  <ion-fab horizontal="end" vertical="top" slot="fixed">
+    <ion-fab-button no-padding id="close" mini translucent (click)="dismiss()">
+      <ion-icon color="dark" name="close"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    <ion-img src="https://via.placeholder.com/140"></ion-img>
+    <!--<ion-img [src]="image"></ion-img>-->
+    
+    <ion-item>
+
+      <ion-label no-padding>
+        <ion-hide-when size="sm, md, lg, xl">
+          <h2>
+            <ion-text float-start>{{ 'Really really Really Long Place Name' | truncate:20 }}</ion-text>
+            <span float-end><h6>(<ion-icon name="star-half"></ion-icon>5.0)</h6></span>
+            <!--<ion-text float-start>{{ place?.name | truncate: 25 }}</ion-text>
+            <span float-end><h6><ion-icon name="star-half"></ion-icon>({{ place?.rating }})</h6></span>-->
+          </h2>
+        </ion-hide-when>
+        <ion-show-when size="sm, md, lg, xl">
+          <h2>
+            <ion-text float-start>Looooooooooong Place Name</ion-text>
+            <!--<ion-text float-start>{{ place?.name }}</ion-text>-->
+            <span float-end><star-rating [rating]="'4.9'"></star-rating></span>
+          </h2>
+        </ion-show-when>
+        
+        <ion-hide-when size="sm, md, lg, xl">
+          <h3>
+            <ion-text float-start>{{ '123 Main St Suite 1000, Milwaukee, WI 53212' | truncate:25 }}</ion-text>
+            <span float-end><ion-icon float-end name="time"></ion-icon></span>
+            <!--<ion-text float-start>{{ place?.formatted_address | truncate:35 }}</ion-text>
+            <span float-end><ion-icon float-end [name]="place?.opening_hours.open_now ? 'time' : 'lock'"></ion-icon></span>-->
+          </h3>
+        </ion-hide-when>
+        <ion-show-when size="sm, md, lg, xl">
+          <h3>
+              <ion-text float-start>123 Main St Suite 1000, Milwaukee, WI 53212</ion-text>
+              <span float-end><ion-icon float-end name="time"></ion-icon></span>
+            <!--<ion-text float-start>{{ place?.formatted_address }}</ion-text>
+            <span float-end><ion-icon [name]="place?.opening_hours.open_now ? 'time' : 'lock'"></ion-icon></span>-->
+          </h3>
+
+        </ion-show-when>
+        <p>
+          <ion-row align-items-center justify-content-between>
+            <ion-col size="6" size-sm="4" text-start>
+              <!--<ion-text float-start>{{ place?.formatted_phone_number }}</ion-text>-->
+              <ion-text float-start>(414) 444-4444</ion-text>
+            </ion-col>
+            
+            <ion-col text-end size="6" size-sm="8">
+              <modal-controls></modal-controls>
+            </ion-col>
+          </ion-row>
+        </p>
+      </ion-label>
+    </ion-item>   
+  </ion-list>
+</ion-content>
